@@ -58,3 +58,17 @@ Só classificar uma obra como Full HD depois de conferir no player oficial:
 
 ## regra
 Build bem-sucedido não prova instalação, estabilidade nem reprodução real. Os links externos para Mercado Play, Anime Sato, Muse BR e Pluto TV não significam que o ynoanimes hospeda ou incorpora os vídeos. Toda funcionalidade precisa da evidência apropriada.
+
+
+## Build e validação mais recentes — 22/11/2026
+
+- Workflow ios-build run 45039011842: **success**.
+- Commit compilado: 365c81607a884b22145fea179a2c3de8479ca926.
+- Smoke test de favoritos/progresso local: aprovado.
+- Xcode Release para generic iOS device/arm64: aprovado.
+- Artefato IPA unsigned: 14761026014 (expira em 06/12/2026).
+- ZIP externo e IPA interno: teste de integridade aprovado.
+- Info.plist: com.ynoez.ynoanimes; yno animes; 0.1.0 (1); iOS mínimo 15.0; família iPhone.
+- Binário: Mach-O 64-bit arm64.
+- SHA-256: b3f6d814da993d1ee81943199284e6521cdedb5df6452f0923dc9ed7ae714f95.
+- **Não pronto para instalação normal:** IPA sem _CodeSignature e sem embedded.mobileprovision. Nenhum teste em aparelho real ou reprodução de vídeo foi realizado.
