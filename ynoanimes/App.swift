@@ -334,28 +334,52 @@ private final class ExternalProviderButton: UIButton {
 final class ProviderDirectoryScreen: UIViewController {
     private let providers: [OfficialProvider] = [
         OfficialProvider(
+            name: "mercado play · catálogo grátis",
+            category: "sob demanda · gratuito com anúncios",
+            detail: "Páginas oficiais listam Naruto, Death Note e Hunter x Hunter como grátis no Brasil. A disponibilidade pode mudar por título, temporada e região.",
+            url: URL(string: "https://play.mercadolivre.com.br/")!
+        ),
+        OfficialProvider(
+            name: "naruto",
+            category: "mercado play · página oficial grátis",
+            detail: "Atalho direto para a página de Naruto. Confirme temporadas e episódios liberados no próprio serviço.",
+            url: URL(string: "https://play.mercadolivre.com.br/assistir/naruto/be679bf2952a48619325b2fd063e0641")!
+        ),
+        OfficialProvider(
+            name: "death note",
+            category: "mercado play · página oficial grátis",
+            detail: "Atalho direto para a página de Death Note. Confirme disponibilidade e idioma antes de começar.",
+            url: URL(string: "https://play.mercadolivre.com.br/assistir/death-note/232ef0bc387347cb9113b8bd82f044cd")!
+        ),
+        OfficialProvider(
+            name: "hunter x hunter",
+            category: "mercado play · página oficial grátis",
+            detail: "Atalho direto para a página de Hunter x Hunter. Confirme temporadas e episódios liberados no próprio serviço.",
+            url: URL(string: "https://play.mercadolivre.com.br/assistir/hunter-x-hunter/1b83745cab2343efb5ad243c4ecb8a31")!
+        ),
+        OfficialProvider(
+            name: "anime sato",
+            category: "youtube · canal oficial gratuito",
+            detail: "Canal da distribuidora Sato Company com séries, filmes e episódios em português e espanhol. A grade é atualizada; resolução e idioma devem ser conferidos em cada vídeo.",
+            url: URL(string: "https://www.youtube.com/@AnimeSatoOficial")!
+        ),
+        OfficialProvider(
             name: "muse br",
             category: "youtube · canal oficial",
-            detail: "Canal oficial identificado como Muse BR. Vídeos, idiomas e disponibilidade regional dependem de cada publicação.",
+            detail: "Canal oficial de distribuidora de anime. Séries e idiomas disponíveis dependem das licenças e de cada publicação.",
             url: URL(string: "https://www.youtube.com/@musebrtv")!
         ),
         OfficialProvider(
-            name: "crunchyroll brasil",
-            category: "youtube · canal oficial",
-            detail: "Canal oficial brasileiro com clipes, trailers e episódios selecionados. O catálogo completo fica no serviço da Crunchyroll.",
-            url: URL(string: "https://www.youtube.com/channel/UCVc-JLY3Db6-O48y7TS4N7Q")!
+            name: "pluto tv · anime",
+            category: "canais ao vivo · grátis com anúncios",
+            detail: "Categoria brasileira de canais de anime. Programação linear e catálogo mudam; não é um catálogo sob demanda completo.",
+            url: URL(string: "https://pluto.tv/br/watch/live-tv/category/anime-geek-br/")!
         ),
         OfficialProvider(
-            name: "pluto tv brasil",
-            category: "streaming gratuito com anúncios",
-            detail: "Canais ao vivo e catálogo rotativo. A grade de anime muda; confira a disponibilidade no próprio serviço.",
-            url: URL(string: "https://pluto.tv/br/live-tv")!
-        ),
-        OfficialProvider(
-            name: "crunchyroll",
-            category: "plataforma oficial",
-            detail: "Serviço oficial de streaming. A disponibilidade de cada obra, idioma e plano varia por região.",
-            url: URL(string: "https://www.crunchyroll.com/pt-br")!
+            name: "crunchyroll brasil · youtube",
+            category: "youtube · conteúdo selecionado",
+            detail: "Canal oficial com trailers, clipes e alguns episódios completos. A assinatura da plataforma não é gratuita no Brasil desde 2026.",
+            url: URL(string: "https://www.youtube.com/@CrunchyrollBR")!
         ),
         OfficialProvider(
             name: "justwatch brasil",
@@ -366,7 +390,7 @@ final class ProviderDirectoryScreen: UIViewController {
         OfficialProvider(
             name: "manga plus",
             category: "mangá · serviço oficial da shueisha",
-            detail: "Leitura de mangás publicados oficialmente pela Shueisha, com capítulos gratuitos e opções pagas conforme a obra.",
+            detail: "Leitura oficial de mangás com capítulos gratuitos e opções pagas conforme a obra. Abre o serviço fora do ynoanimes.",
             url: URL(string: "https://mangaplus.shueisha.co.jp/")!
         )
     ]
@@ -389,7 +413,7 @@ final class ProviderDirectoryScreen: UIViewController {
 
         stack.addArrangedSubview(YTheme.label("assista nas fontes oficiais", 22, .bold))
         stack.addArrangedSubview(YTheme.label(
-            "O ynoanimes abre os serviços oficiais. Não extraímos links privados, não hospedamos episódios de terceiros e não removemos anúncios ou controles dos players.",
+            "Atalhos para fontes gratuitas e oficiais no Brasil. O ynoanimes abre cada serviço fora do app; não copia vídeos nem remove anúncios. A resolução máxima depende de cada título e ainda precisa ser conferida no serviço.",
             14, .regular, YTheme.muted
         ))
 
