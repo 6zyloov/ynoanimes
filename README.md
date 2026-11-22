@@ -12,11 +12,12 @@ Projeto independente para reconstruir no iOS a experiência do aplicativo Androi
 - [x] Repositório criado e documentação inicial preparada
 - [x] Receber e identificar estruturalmente o APK de referência (análise estática; execução não verificada)
 - [x] Definir uma base iOS com deployment target 15.0 e build arm64 em CI (ainda sem teste no aparelho)
-- [x] Criar shell inicial UIKit com navegação inferior e diretório de fontes oficiais
-- [ ] Refinar interface e concluir todos os fluxos de navegação
-- [ ] Implementar catálogo, busca, categorias e detalhes
-- [x] Implementar a camada de dados local de favoritos e progresso (testada em CI)
-- [ ] Integrar favoritos e histórico às telas
+- [x] Criar app UIKit com navegação inferior e diretório de fontes oficiais
+- [x] Refazer a tela inicial e implementar biblioteca local com cadastro/status/remoção de títulos
+- [x] Implementar busca externa de disponibilidade pelo JustWatch Brasil
+- [x] Testar inclusão, deduplicação, alteração de status e remoção da biblioteca no CI
+- [ ] Integrar catálogo de metadados autorizado, categorias e detalhes
+- [ ] Integrar favoritos e histórico de reprodução a um catálogo/player autorizado
 - [ ] Implementar player, legendas e controles
 - [ ] Validar login e integrações permitidas
 - [ ] Compilar, instalar e testar o IPA no dispositivo-alvo
@@ -29,11 +30,13 @@ Nenhuma funcionalidade está marcada como concluída apenas por estar documentad
 ## Estado técnico atual (22/11/2026)
 
 - App nativo UIKit/AVKit com abas início, buscar, biblioteca, fontes e ajustes.
-- Favoritos e progresso locais implementados; smoke test passou no CI.
-- Diretório de fontes atualizado com Mercado Play (atalhos Naruto, Death Note e Hunter x Hunter), Anime Sato, Muse BR, Pluto TV, Crunchyroll Brasil no YouTube, JustWatch e MANGA Plus.
-- Build arm64 e IPA unsigned versão 0.1.0 (1) passaram no Xcode 16.4/GitHub Actions.
-- Artefato baixado e inspecionado; o executável é arm64 e exige iOS 15.0 ou superior.
-- O IPA não tem assinatura nem provisioning profile e não foi instalado no iPhone real. Não é versão final.
+- Tela inicial renovada com atalhos para fontes, busca e títulos selecionados.
+- Biblioteca local permite cadastrar títulos manualmente e organizar por “quero assistir”, “assistindo”, “concluído” e “pausado”; testes de dados passaram no CI.
+- Busca abre o JustWatch Brasil. Não há API de parceiro nem scraping.
+- Diretório inclui páginas Mercado Play, playlists oficiais Crunchyroll Brasil/Anime Sato, Muse BR, Pluto TV, JustWatch e MANGA Plus; as fontes de vídeo abrem externamente.
+- Build arm64 e dois pacotes IPA versão 0.1.0 (1) passaram no Xcode 16.4/GitHub Actions.
+- IPA TrollStore fakesigned com ldid, pronto para ser importado pelo TrollStore; SHA-256: `7461c5b2ce0d6c5569ccec89b00a9fb7d75b36341aa56917b561af1422231ecc`.
+- O pacote não tem certificado Apple/provisioning profile e ainda não foi instalado no iPhone real. A instalação no TrollStore permanece não verificada.
 - O catálogo e os episódios não estão integrados ao player do ynoanimes. Os serviços da aba fontes abrem externamente.
 - Resolução e bitrate não foram verificados por título; não prometer Full HD antes dos testes.
 
@@ -78,4 +81,4 @@ Este repositório é a documentação e o código do projeto **yno animes**. Nã
 
 ## Desenvolvimento
 
-O projeto ainda está em fase inicial. Consulte o [roadmap](docs/roadmap.md) para acompanhar o progresso e as próximas etapas.
+O projeto continua em desenvolvimento. A compilação e os testes de dados passaram no CI, mas a instalação no iPhone real, a revisão visual no aparelho e qualquer reprodução de episódios continuam pendentes. Consulte o [roadmap](docs/roadmap.md) para acompanhar o progresso.
