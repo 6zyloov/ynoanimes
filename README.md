@@ -28,13 +28,14 @@ Nenhuma funcionalidade está marcada como concluída apenas por estar documentad
 
 ## Estado técnico atual (22/11/2026)
 
-- Base UIKit/AVKit com abas início, buscar, biblioteca, fontes e ajustes.
-- Camada local de favoritos/progresso com smoke test aprovado.
-- Diretório de fontes oficiais atualizado: Mercado Play (atalhos Naruto, Death Note e Hunter x Hunter), Anime Sato, Muse BR, Pluto TV, Crunchyroll Brasil no YouTube, JustWatch e MANGA Plus.
-- Build arm64 com Xcode 16.4 aprovado no CI; protótipo IPA unsigned 0.1.0 (1) gerado.
-- O IPA não está assinado nem instalado no iPhone real; não é versão final.
-- Catálogo embutido e reprodução própria seguem bloqueados até haver direitos/SDK autorizados. Os links externos são acesso aos serviços oficiais, não mídia hospedada pelo ynoanimes.
-- Qualidade 1080p/bitrate e sincronização não foram verificadas por título. Não prometer Full HD sem testes.
+- App nativo UIKit/AVKit com abas início, buscar, biblioteca, fontes e ajustes.
+- Favoritos e progresso locais implementados; smoke test passou no CI.
+- Diretório de fontes atualizado com Mercado Play (atalhos Naruto, Death Note e Hunter x Hunter), Anime Sato, Muse BR, Pluto TV, Crunchyroll Brasil no YouTube, JustWatch e MANGA Plus.
+- Build arm64 e IPA unsigned versão 0.1.0 (1) passaram no Xcode 16.4/GitHub Actions.
+- Artefato baixado e inspecionado; o executável é arm64 e exige iOS 15.0 ou superior.
+- O IPA não tem assinatura nem provisioning profile e não foi instalado no iPhone real. Não é versão final.
+- O catálogo e os episódios não estão integrados ao player do ynoanimes. Os serviços da aba fontes abrem externamente.
+- Resolução e bitrate não foram verificados por título; não prometer Full HD antes dos testes.
 
 ## Escopo planejado
 
