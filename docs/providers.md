@@ -262,3 +262,13 @@ Para liberar episódios no player interno, será necessário escolher um acordo/
 - Foram adicionados atalhos diretos às playlists públicas oficiais da Crunchyroll Brasil e Anime Sato na aba fontes.
 
 **Limites não resolvidos:** resolução real 1080p, bitrate, sincronização, legendas e estabilidade no iPhone 6s Plus/iOS 15.8.8 ainda precisam de teste físico. O build de CI comprova compilação, não reprodução audiovisual nem instalação assinada.
+
+### Mais páginas de anime localizadas no Mercado Play
+
+A busca do índice do próprio domínio Mercado Play retornou as seguintes páginas com título/descrição indicando acesso grátis no Brasil:
+
+- Special A: https://play.mercadolivre.com.br/assistir/special-a/768c34414ded497e9e23cedbf5887597
+- Inazuma Eleven — Os Estrangeiros Estão Aqui: https://play.mercadolivre.com.br/assistir/inazuma-eleven-os-estrangeiros-estao-aqui-1-27/47d5584ffb974e74ac69ff45cdcdf0d0
+- Beyblade Burst — Na Escuridão! Dark Doomscizor!: https://play.mercadolivre.com.br/assistir/beyblade-burst-na-escuridao-dark-doomscizor-1-5/61cd0c7842fe4a86bf69e1137cf2c4b2
+
+As páginas foram adicionadas como atalhos externos no app. A tentativa de leitura direta automatizada encontrou erro de página, então a classificação permanece **parcial**: o índice oficial as descreveu como grátis, mas a disponibilidade atual, temporadas completas, idioma e reprodução precisam ser confirmados manualmente no próprio Mercado Play. Não rotular esses episódios isolados como temporadas completas.
