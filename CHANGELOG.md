@@ -32,3 +32,11 @@ Alterações relevantes do projeto yno animes.
 - Perfil Basic anunciado como gratuito; plano Pro divulgado a US$ 49/mês, não contratado.
 - Streaming de episódios dentro de app de terceiros não está confirmado no catálogo público. Próximo passo é perguntar ao marketplace/licensor se há direitos audiovisuais SVOD/TVOD/AVOD para Brasil e entrega via HLS/SDK.
 - Nenhum cadastro, pagamento, contato comercial ou licença foi realizado.
+
+
+## fontes gratuitas oficiais no Brasil — 22/11/2026
+
+- Atualizado diretório da aba “fontes” para priorizar serviços e canais gratuitos: Mercado Play, Anime Sato, Muse BR, Pluto TV e conteúdo selecionado no canal da Crunchyroll Brasil.
+- Adicionados atalhos oficiais para páginas do Mercado Play marcadas como gratuitas: Naruto, Death Note e Hunter x Hunter.
+- Documentada a diferença entre acesso gratuito ao espectador e autorização para incorporar/retransmitir mídia dentro do app.
+- Registrado critério de qualidade: não afirmar Full HD sem verificar resolução, bitrate, áudio e legendas por episódio.
