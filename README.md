@@ -26,7 +26,17 @@ Nenhuma funcionalidade está marcada como concluída apenas por estar documentad
 
 </details>
 
-## Estado técnico atual (22/11/2026)\n\n- Base nativa UIKit/AVKit criada em `ynoanimes/`.\n- Favoritos e progresso local implementados com `UserDefaults` e codificação JSON.\n- Smoke test automatizado de favoritos/progresso: aprovado no macOS CI.\n- Build de dispositivo genérico arm64 com Xcode 16.4: aprovado.\n- IPA unsigned gerado e integridade ZIP conferida; não está assinado nem foi instalado em iPhone.\n- Catálogo real e episódios: bloqueados até existir fornecedor/titular com autorização documentada.\n- O binário atual é um protótipo técnico, não uma versão de uso final.\n\n## Escopo planejado
+## Estado técnico atual (22/11/2026)
+
+- Base nativa UIKit/AVKit criada em `ynoanimes/`, com abas início, buscar, biblioteca, fontes e ajustes.
+- Favoritos e progresso local implementados com `UserDefaults` e codificação JSON; smoke test aprovado no macOS CI.
+- Diretório de fontes oficiais abre Muse BR, Crunchyroll, Pluto TV, JustWatch e MANGA Plus fora do app.
+- Build arm64 com Xcode 16.4 aprovado no CI; IPA de protótipo unsigned versão 0.1.0 (1) gerado e verificado.
+- O IPA não está assinado nem foi instalado no iPhone real; não é versão final.
+- Catálogo real e episódios seguem bloqueados até existir autorização do titular/provedor. AniBiz foi identificado como caminho B2B para investigar licenciamento, mas direitos de streaming dentro do app ainda precisam ser confirmados em `docs/providers.md`.
+- O binário atual é um protótipo técnico, não uma versão de uso final.
+
+## Escopo planejado
 
 - Interface escura inspirada nos fluxos observados no aplicativo de referência, sem copiar código ou recursos proprietários.
 - Catálogo de animes e mangás, categorias, pesquisa e páginas de detalhes.
