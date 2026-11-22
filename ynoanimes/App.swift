@@ -410,7 +410,7 @@ final class LibraryScreen: UIViewController {
         let watching = items.filter { $0.status == "assistindo" }.count
         let planned = items.filter { $0.status == "quero assistir" }.count
         let completed = items.filter { $0.status == "concluído" }.count
-        summaryLabel.text = "(items.count) título(s)\n\(watching) assistindo  ·  (planned) na lista  ·  (completed) concluído(s)"
+        summaryLabel.text = "\(items.count) título(s)\n\(watching) assistindo  ·  \(planned) na lista  ·  \(completed) concluído(s)"
 
         entriesStack.arrangedSubviews.forEach {
             entriesStack.removeArrangedSubview($0)
