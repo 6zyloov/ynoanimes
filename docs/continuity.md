@@ -2,7 +2,7 @@
 
 **Atualizado:** 22/11/2026  
 **Repositório:** https://github.com/6zyloov/ynoanimes  
-**Prioridade:** avançar o app sem depender de endpoints privados; negociar direitos de catálogo e episódios com distribuidores oficiais.
+**Prioridade:** reconstruir o escopo funcional do Tomato em iOS, módulo por módulo, sem fingir que o shell atual é equivalente e sem depender de endpoints privados.
 
 ## Identidade e alvo
 
@@ -22,10 +22,15 @@
 - `ynoanimes.xcodeproj`: projeto Xcode para iOS 15+, Bundle ID e versão 0.1.0 (1).
 - `.github/workflows/ios-build.yml`: testes/build em macOS com Xcode; CI de push limitado a alterações de código e workflow manual disponível.
 - `docs/reverse-engineering.md`: inventário estático da amostra Tomato.
+- `docs/auditoria-escopo.md`: comparação mensurada entre APK de 99 MB e protótipo IPA de 87 KB; plano de port e classificação corrigida.
 - `docs/providers.md`: plataformas oficiais, distribuidores e canais de licenciamento.
 - `docs/roadmap.md`, `docs/testing.md` e este arquivo: planejamento e evidências.
 
-## Evidência de build mais recente
+## Correção importante de escopo
+
+O IPA de 87.311 bytes do workflow 45042287537 é **somente um protótipo UIKit mínimo/prova de compilação**, não é o ynoanimes equivalente ao Tomato e não deve ser apresentado como entrega. O arquivo contém um executável de 311.840 bytes e apenas Info.plist/PkgInfo além dele. Não contém catálogo integrado, player, telas equivalentes completas, conta, comentários, leitor de mangá ou os recursos multimídia do APK. O APK de referência tem 99.167.557 bytes e inclui React Native/Hermes, sete DEX, 84 bibliotecas nativas distribuídas por quatro ABIs, bundle JS e milhares de recursos. O IPA iOS não precisa ter o mesmo tamanho, mas precisa implementar os recursos reais. Ver `docs/auditoria-escopo.md`.
+
+## Evidência de build do protótipo (não entrega)
 
 - GitHub Actions run: 45042287537 — **sucesso**.
 - Link: https://github.com/6zyloov/ynoanimes/actions/runs/45042287537
@@ -74,9 +79,11 @@ Esses links estão no diretório da aba “fontes”. Eles **não** conferem dir
 
 ## Próximas ações
 
-1. Manter a base UIKit e corrigir problemas visuais/funcionais sem recomeçar do zero.
-2. Priorizar a experiência de orçamento zero com fontes externas oficiais: Mercado Play, Anime Sato, Muse BR e Pluto TV; usar títulos diretos só enquanto a página oficial indicar gratuito.
-3. Consultar AniBiz gratuitamente primeiro para confirmar se consegue negociar direitos audiovisuais de streaming; não contratar Pro/VIP sem aprovação.
+1. Usar `docs/auditoria-escopo.md` como checklist de reconstrução funcional e mapear cada tela/fluxo do APK.
+2. Evoluir a base UIKit existente sem confundi-la com o port concluído; implementar catálogo, temporadas, episódios, detalhes e estados de tela.
+3. Implementar e testar o player com mídia de teste autorizada, depois áudio/legendas/velocidade/retomada/PiP.
+4. Manter fontes externas oficiais como opção de orçamento zero; streaming integrado depende de direitos ou integração autorizada.
+5. Não contratar serviço pago nem reutilizar endpoints privados do Tomato..
 4. Preparar consultas comerciais para Sato Company e Artworks, e em paralelo MUSE se os direitos cobrirem Brasil.
 5. Continuar a integração local de favoritos e histórico às telas.
 6. Desenvolver AVPlayer com mídia de teste própria/licenciada e validar legendas suportadas.
