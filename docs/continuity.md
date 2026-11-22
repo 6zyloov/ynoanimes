@@ -16,7 +16,7 @@
 
 ## O que existe no repositório
 
-- `ynoanimes/App.swift`: shell inicial UIKit com abas início, buscar, biblioteca, fontes e ajustes; diretório de fontes oficiais abre os serviços fora do app.
+- `ynoanimes/App.swift`: shell inicial UIKit com abas início, buscar, biblioteca, fontes e ajustes; diretório atualizado com Mercado Play (atalhos para Naruto, Death Note e Hunter x Hunter), Anime Sato, Muse BR, Pluto TV, Crunchyroll BR YouTube, JustWatch e MANGA Plus. Todos abrem externamente.
 - `ynoanimes/LibraryData.swift`: modelos iniciais, interface `CatalogProvider` ainda não conectada a um serviço e persistência local de favoritos/progresso.
 - `Tests/LibraryStoreSmokeTests.swift`: teste automatizado de favoritos e progresso.
 - `ynoanimes.xcodeproj`: projeto Xcode para iOS 15+, Bundle ID e versão 0.1.0 (1).
@@ -37,6 +37,17 @@
 - SHA-256 do IPA unsigned: `a97fb0ae2a898ff4bd36d52ea098e9cc5a661fe678862245b07c3e38df1c2d59`.
 
 **Limite:** esse IPA não é uma entrega pronta para uso. Foi compilado com assinatura desativada, contém apenas o shell e links externos, não tem catálogo/episódios integrados, não foi instalado no iPhone real e não teve a interface testada no iOS 15.8.8. Não chamar de IPA final.
+
+## Fontes gratuitas e gratuitas no Brasil
+
+- Mercado Play: páginas oficiais marcadas como grátis para Naruto, Death Note e Hunter x Hunter; atalhos no app. Disponibilidade por temporada/episódio pode mudar.
+- Anime Sato: canal oficial gratuito da Sato Company no YouTube; série e playlist em português foram identificadas.
+- Muse BR: canal oficial de distribuidora no YouTube; confirmar títulos por vídeo.
+- Pluto TV: categoria brasileira Anime/Geek gratuita com anúncios e programação rotativa.
+- Crunchyroll BR no YouTube: vídeos selecionados; o plano gratuito sob demanda da plataforma terminou em 31/12/2025.
+- JustWatch só localiza onde assistir; não fornece episódios.
+
+Qualidade máxima (1080p+), bitrate, faixa de áudio e sincronização de legendas **não foram verificadas vídeo a vídeo**. O app não deve prometer Full HD sem inspeção do player de cada obra. As fontes ficam externas; gratuidade para o espectador não autoriza redistribuição ou incorporação.
 
 ## Fontes encontradas
 
@@ -74,13 +85,14 @@ Esses links estão no diretório da aba “fontes”. Eles **não** conferem dir
 ## Próximas ações
 
 1. Manter a base UIKit e corrigir problemas visuais/funcionais sem recomeçar do zero.
-2. Consultar AniBiz gratuitamente primeiro para confirmar se consegue negociar direitos audiovisuais de streaming; não contratar Pro/VIP sem aprovação.
-3. Preparar consultas comerciais para Sato Company e Artworks, e em paralelo MUSE se os direitos cobrirem Brasil.
-4. Continuar a integração local de favoritos e histórico às telas.
-5. Desenvolver AVPlayer com mídia de teste própria/licenciada e validar legendas suportadas.
-6. Só conectar catálogo, imagens e episódios depois da confirmação escrita dos direitos.
-7. Configurar assinatura/instalação compatível com Dopamine e testar no iPhone 6s Plus/iOS 15.8.8.
-8. Entregar apenas quando a instalação e os fluxos reais estiverem verificados.
+2. Priorizar a experiência de orçamento zero com fontes externas oficiais: Mercado Play, Anime Sato, Muse BR e Pluto TV; usar títulos diretos só enquanto a página oficial indicar gratuito.
+3. Consultar AniBiz gratuitamente primeiro para confirmar se consegue negociar direitos audiovisuais de streaming; não contratar Pro/VIP sem aprovação.
+4. Preparar consultas comerciais para Sato Company e Artworks, e em paralelo MUSE se os direitos cobrirem Brasil.
+5. Continuar a integração local de favoritos e histórico às telas.
+6. Desenvolver AVPlayer com mídia de teste própria/licenciada e validar legendas suportadas.
+7. Só conectar catálogo, imagens e episódios depois da confirmação escrita dos direitos.
+8. Configurar assinatura/instalação compatível com Dopamine e testar no iPhone 6s Plus/iOS 15.8.8.
+9. Entregar apenas quando a instalação e os fluxos reais estiverem verificados.
 
 ## Regra de classificação
 
