@@ -72,6 +72,7 @@ final class YTabs: UITabBarController {
             (HomeScreen(), "início", "house"),
             (SearchScreen(), "buscar", "magnifyingglass"),
             (LibraryScreen(), "biblioteca", "bookmark"),
+            (ProviderDirectoryScreen(), "fontes", "play.rectangle.on.tv"),
             (SettingsScreen(), "ajustes", "slider.horizontal.3")
         ]
         viewControllers = items.map { controller, title, symbol in
@@ -294,5 +295,152 @@ final class PlaybackScreen: AVPlayerViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         player?.pause()
+    }
+}
+
+
+private struct OfficialProvider {
+    let name: String
+    let category: String
+    let detail: String
+    let url: URL
+}
+
+private final class ExternalProviderButton: UIButton {
+    private let destination: URL
+
+    init(title: String, destination: URL) {
+        self.destination = destination
+        super.init(frame: .zero)
+        setTitle(title, for: .normal)
+        setTitleColor(.black, for: .normal)
+        titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        backgroundColor = .white
+        layer.cornerRadius = 11
+        contentEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
+        addTarget(self, action: #selector(openDestination), for: .touchUpInside)
+        accessibilityHint = "Abre o serviço oficial fora do ynoanimes"
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) não é suportado")
+    }
+
+    @objc private func openDestination() {
+        UIApplication.shared.open(destination, options: [:], completionHandler: nil)
+    }
+}
+
+final class ProviderDirectoryScreen: UIViewController {
+    private let providers: [OfficialProvider] = [
+        OfficialProvider(
+            name: "muse br",
+            category: "youtube · canal oficial",
+            detail: "Canal oficial identificado como Muse BR. Vídeos, idiomas e disponibilidade regional dependem de cada publicação.",
+            url: URL(string: "https://www.youtube.com/@musebrtv")!
+        ),
+        OfficialProvider(
+            name: "crunchyroll brasil",
+            category: "youtube · canal oficial",
+            detail: "Canal oficial brasileiro com clipes, trailers e episódios selecionados. O catálogo completo fica no serviço da Crunchyroll.",
+            url: URL(string: "https://www.youtube.com/channel/UCVc-JLY3Db6-O48y7TS4N7Q")!
+        ),
+        OfficialProvider(
+            name: "pluto tv brasil",
+            category: "streaming gratuito com anúncios",
+            detail: "Canais ao vivo e catálogo rotativo. A grade de anime muda; confira a disponibilidade no próprio serviço.",
+            url: URL(string: "https://pluto.tv/br/live-tv")!
+        ),
+        OfficialProvider(
+            name: "crunchyroll",
+            category: "plataforma oficial",
+            detail: "Serviço oficial de streaming. A disponibilidade de cada obra, idioma e plano varia por região.",
+            url: URL(string: "https://www.crunchyroll.com/pt-br")!
+        ),
+        OfficialProvider(
+            name: "justwatch brasil",
+            category: "busca de disponibilidade",
+            detail: "Ajuda a localizar em qual serviço legal um título está disponível. Não hospeda nem reproduz episódios.",
+            url: URL(string: "https://www.justwatch.com/br")!
+        ),
+        OfficialProvider(
+            name: "manga plus",
+            category: "mangá · serviço oficial da shueisha",
+            detail: "Leitura de mangás publicados oficialmente pela Shueisha, com capítulos gratuitos e opções pagas conforme a obra.",
+            url: URL(string: "https://mangaplus.shueisha.co.jp/")!
+        )
+    ]
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "fontes"
+        view.backgroundColor = YTheme.bg
+        navigationItem.largeTitleDisplayMode = .always
+
+        let scroll = UIScrollView()
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scroll)
+
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 14
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        scroll.addSubview(stack)
+
+        stack.addArrangedSubview(YTheme.label("assista nas fontes oficiais", 22, .bold))
+        stack.addArrangedSubview(YTheme.label(
+            "O ynoanimes abre os serviços oficiais. Não extraímos links privados, não hospedamos episódios de terceiros e não removemos anúncios ou controles dos players.",
+            14, .regular, YTheme.muted
+        ))
+
+        for provider in providers {
+            stack.addArrangedSubview(makeProviderCard(provider))
+        }
+
+        let note = YTheme.label(
+            "A presença de um serviço nesta lista não significa que todo anime esteja disponível nele ou que exista autorização para incorporar seu player. A reprodução dentro do ynoanimes depende de contrato específico com o titular dos direitos.",
+            12, .regular, YTheme.muted
+        )
+        stack.addArrangedSubview(note)
+
+        NSLayoutConstraint.activate([
+            scroll.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scroll.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scroll.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scroll.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stack.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor, constant: 20),
+            stack.leadingAnchor.constraint(equalTo: scroll.frameLayoutGuide.leadingAnchor, constant: 18),
+            stack.trailingAnchor.constraint(equalTo: scroll.frameLayoutGuide.trailingAnchor, constant: -18),
+            stack.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor, constant: -24)
+        ])
+    }
+
+    private func makeProviderCard(_ provider: OfficialProvider) -> UIView {
+        let card = YTheme.makeCard()
+        let labels = UIStackView(arrangedSubviews: [
+            YTheme.label(provider.name, 17, .semibold),
+            YTheme.label(provider.category, 11, .semibold, YTheme.muted),
+            YTheme.label(provider.detail, 13, .regular, YTheme.muted)
+        ])
+        labels.axis = .vertical
+        labels.spacing = 7
+
+        let button = ExternalProviderButton(title: "abrir fonte oficial ↗", destination: provider.url)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(greaterThanOrEqualToConstant: 42).isActive = true
+
+        let content = UIStackView(arrangedSubviews: [labels, button])
+        content.axis = .vertical
+        content.spacing = 13
+        content.translatesAutoresizingMaskIntoConstraints = false
+        card.addSubview(content)
+
+        NSLayoutConstraint.activate([
+            content.topAnchor.constraint(equalTo: card.topAnchor, constant: 16),
+            content.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 16),
+            content.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -16),
+            content.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -16)
+        ])
+        return card
     }
 }
