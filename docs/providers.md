@@ -239,3 +239,26 @@ Estes são os melhores caminhos encontrados para pedir direitos de conteúdo, n�
 Para liberar episódios no player interno, será necessário escolher um acordo/provedor e aceitar os termos comerciais, que podem envolver empresa, território, catálogo, quantidade de usuários, remuneração, DRM, publicidade e limites de distribuição. Nenhum segredo ou senha deve ser enviado no chat.
 
 **Não é necessário o usuário procurar sites piratas nem fornecer endpoint do Tomato.** A próxima etapa é obter uma resposta comercial/documentação de um distribuidor/titular. Até lá, o app pode oferecer os links externos oficiais, mas o streaming interno permanece **bloqueado**.
+
+
+## 6. Atualização de verificação — playlists oficiais e busca externa (22/11/2026)
+
+### Playlists de episódios encontradas
+
+- **Crunchyroll Brasil — Episódios de Anime Completos:** https://www.youtube.com/playlist?list=PLvdPoYtCK3rNsMQ4zL-OpuWd0cwKZqbSN
+  - Página consultada identificou a playlist como pertencente ao canal oficial Crunchyroll Brasil, com 227 vídeos listados na consulta.
+  - A descrição da própria playlist esclarece que reúne episódios completos selecionados e que a temporada completa está na plataforma Crunchyroll. Portanto, não anunciar como temporadas completas gratuitas.
+  - **Estado:** **parcial** — playlist oficial localizada e linkada; disponibilidade por vídeo, idioma e resolução não foram testados em iPhone.
+- **Anime Sato — With Vengeance, Sincerely, Your Broken Saintess:** https://www.youtube.com/playlist?list=PLe0jn-R7nFs4
+  - A página do canal oficial exibiu uma playlist em português com 12 episódios.
+  - **Estado:** **parcial** — playlist oficial localizada e linkada; legendas, reprodução no Brasil e resolução não foram verificadas no dispositivo-alvo.
+- **Muse BR:** a página pública consultada exibiu playlists de eventos e comunidade; nesta verificação não foi localizada uma playlist de episódios completos em português. O canal permanece apenas como link de novidades e não deve ser divulgado como catálogo gratuito confirmado.
+
+### Alteração de conformidade no app
+
+- A busca deixou de consultar a API GraphQL do AniList. A documentação de provedores já classificava o uso em um app concorrente/independente como bloqueado sem autorização expressa; manter a chamada ativa seria incompatível com essa avaliação.
+- A aba buscar agora encaminha o termo digitado para a pesquisa pública do JustWatch Brasil (https://www.justwatch.com/br/busca?q=...). Não há API de parceiro, scraping nem resultados de catálogo apresentados dentro do ynoanimes.
+- O código do provedor AniList foi removido. A busca é, portanto, uma pesquisa externa de disponibilidade, não um catálogo interno.
+- Foram adicionados atalhos diretos às playlists públicas oficiais da Crunchyroll Brasil e Anime Sato na aba fontes.
+
+**Limites não resolvidos:** resolução real 1080p, bitrate, sincronização, legendas e estabilidade no iPhone 6s Plus/iOS 15.8.8 ainda precisam de teste físico. O build de CI comprova compilação, não reprodução audiovisual nem instalação assinada.
