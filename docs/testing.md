@@ -13,6 +13,8 @@ Atualizado em 22/11/2026.
 | verificação | resultado | evidência |
 |---|---|---|
 | favoritos/progresso local | **implementado e testado** | smoke test Swift no macOS CI |
+| biblioteca local com status | **implementado e testado** | inserir, impedir duplicado, atualizar status, validar status e remover no smoke test |
+| início com atalhos | **implementado e testado** | build Release compila os cartões e navegação por abas |
 | diretório de fontes oficiais gratuitas | **implementado e testado** | build CI passou após atualizar cards externos |
 | build iOS arm64 | **implementado e testado** | Xcode 16.4, Release, generic iOS device |
 | IPA unsigned | **implementado e testado** | artefato descarregado, wrapper ZIP e IPA interno validados |
@@ -20,7 +22,8 @@ Atualizado em 22/11/2026.
 | Bundle ID/nome/versão | **implementado e testado** | Info.plist lido |
 | deployment target | **implementado e testado** | MinimumOSVersion 15.0 |
 | arquitetura | **implementado e testado** | Mach-O 64-bit arm64 |
-| assinatura | **não concluído** | sem _CodeSignature e sem embedded.mobileprovision |
+| assinatura Apple para instalação padrão | **não concluído** | sem certificado Apple e sem embedded.mobileprovision |
+| fakesign TrollStore | **implementado e testado** | LC_CODE_SIGNATURE criado por ldid; destino de instalação é TrollStore |
 | instalação iPhone real | **não verificado** | não instalado em iPhone 6s Plus |
 | interface iOS 15.8.8 | **não verificado** | nenhum teste no dispositivo-alvo |
 | disponibilidade de temporadas | **não verificado** | páginas oficiais existem, mas não foi testada a reprodução em cada região/conta |
@@ -62,26 +65,14 @@ Build bem-sucedido não prova instalação, estabilidade nem reprodução real. 
 
 ## Build e validação mais recentes — 22/11/2026
 
-- Workflow ios-build run 45039011842: **success**.
-- Commit compilado: 365c81607a884b22145fea179a2c3de8479ca926.
-- Smoke test de favoritos/progresso local: aprovado.
-- Xcode Release para generic iOS device/arm64: aprovado.
-- Artefato IPA unsigned: 14761026014 (expira em 06/12/2026).
-- ZIP externo e IPA interno: teste de integridade aprovado.
-- Info.plist: com.ynoez.ynoanimes; yno animes; 0.1.0 (1); iOS mínimo 15.0; família iPhone.
-- Binário: Mach-O 64-bit arm64.
-- SHA-256: b3f6d814da993d1ee81943199284e6521cdedb5df6452f0923dc9ed7ae714f95.
-- **Não pronto para instalação normal:** IPA sem _CodeSignature e sem embedded.mobileprovision. Nenhum teste em aparelho real ou reprodução de vídeo foi realizado.
+- Workflow ios-build run 45041933608: **success**.
+- Link: https://github.com/6zyloov/ynoanimes/actions/runs/45041933608
+- Commit compilado: 8039c33c954da3897a80ec8d7d87f065259f9aeb.
+- Teste da biblioteca local, build Xcode Release arm64, instalação de ldid-procursus, empacotamento e upload dos dois IPAs: aprovados.
+- Artefato: 14761997812; expira em 06/12/2026.
+- Bundle ID: com.ynoez.ynoanimes; display name: yno animes; version/build: 0.1.0 (1); iOS mínimo 15.0; UIDeviceFamily iPhone.
+- IPA unsigned: 84.168 bytes; SHA-256: cea361e4cb775e09a34ed0fbe502496b6648981cc27c29f7f09a206f3aeed6cd.
+- IPA TrollStore: 86.928 bytes; SHA-256: 7461c5b2ce0d6c5569ccec89b00a9fb7d75b36341aa56917b561af1422231ecc.
+- Integridade: unzip -t sem erros nos dois IPAs. Info.plist e Mach-O arm64 conferidos. A variante TrollStore contém LC_CODE_SIGNATURE (fakesign ldid); a unsigned não contém esse load command.
 
-
-## Pacotes TrollStore — 22/11/2026
-
-- Workflow 45039575522: sucesso; commit 7ec0a6ba61ceb03785607845c11818885c8f547c.
-- A pipeline instala ldid-procursus e gera duas variantes: IPA unsigned puro e IPA com o executável Mach-O fakesigned para TrollStore.
-- Os dois ZIPs internos passaram em unzip -t; ambos têm Info.plist correto, bundle ID com.ynoez.ynoanimes, iOS mínimo 15.0 e binário Mach-O arm64.
-- A variante TrollStore tem LC_CODE_SIGNATURE e blob de assinatura fake (ldid); a unsigned não tem LC_CODE_SIGNATURE.
-- SHA-256 unsigned: 66c9244295d86123602ec52e8c62e0528e560a5e06282289dc5e2dfe48f8d439.
-- SHA-256 TrollStore: 6c80b2979a008c883926e3b7b923602067275448987c3317640c2ac568ab6461.
-- Artefato GitHub Actions 14760454946; expiração 06/12/2026.
-
-**Classificação:** build e integridade dos pacotes **implementado e testado**; compatibilidade por Info.plist/Mach-O **verificada**; instalação no TrollStore e execução em iPhone 6s Plus/iOS 15.8.8 **não verificadas**. A assinatura fake não é assinatura Apple e não instala pelo fluxo normal do iOS.
+**Classificação:** build, testes de dados e integridade dos pacotes **implementado e testado**. Instalação e abertura no iPhone 6s Plus/iOS 15.8.8 **não verificadas**. O fakesign não é certificado Apple e não instala pelo fluxo normal do iOS; importar a variante específica pelo TrollStore.
