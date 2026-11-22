@@ -10,8 +10,8 @@ Projeto independente para reconstruir no iOS a experiência do aplicativo Androi
 <summary>Estado do projeto</summary>
 
 - [x] Repositório criado e documentação inicial preparada
-- [ ] Inspecionar o APK de referência e registrar telas, fluxos e comportamento
-- [ ] Definir arquitetura iOS compatível com iOS 15.8.8
+- [x] Receber e identificar estruturalmente o APK de referência (análise estática; execução não verificada)
+- [x] Definir uma base iOS com deployment target 15.0 e build arm64 em CI (ainda sem teste no aparelho)
 - [ ] Implementar interface e navegação
 - [ ] Implementar catálogo, busca, categorias e detalhes
 - [ ] Implementar favoritos e histórico
@@ -24,7 +24,7 @@ Nenhuma funcionalidade está marcada como concluída apenas por estar documentad
 
 </details>
 
-## Escopo planejado
+## Estado técnico atual (22/11/2026)\n\n- Base nativa UIKit/AVKit criada em `ynoanimes/`.\n- Favoritos e progresso local implementados com `UserDefaults` e codificação JSON.\n- Smoke test automatizado de favoritos/progresso: aprovado no macOS CI.\n- Build de dispositivo genérico arm64 com Xcode 16.4: aprovado.\n- IPA unsigned gerado e integridade ZIP conferida; não está assinado nem foi instalado em iPhone.\n- Catálogo real e episódios: bloqueados até existir fornecedor/titular com autorização documentada.\n- O binário atual é um protótipo técnico, não uma versão de uso final.\n\n## Escopo planejado
 
 - Interface escura inspirada nos fluxos observados no aplicativo de referência, sem copiar código ou recursos proprietários.
 - Catálogo de animes e mangás, categorias, pesquisa e páginas de detalhes.
