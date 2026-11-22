@@ -28,13 +28,13 @@ Nenhuma funcionalidade está marcada como concluída apenas por estar documentad
 
 ## Estado técnico atual (22/11/2026)
 
-- Base nativa UIKit/AVKit criada em `ynoanimes/`, com abas início, buscar, biblioteca, fontes e ajustes.
-- Favoritos e progresso local implementados com `UserDefaults` e codificação JSON; smoke test aprovado no macOS CI.
-- Diretório de fontes oficiais abre Muse BR, Crunchyroll, Pluto TV, JustWatch e MANGA Plus fora do app.
-- Build arm64 com Xcode 16.4 aprovado no CI; IPA de protótipo unsigned versão 0.1.0 (1) gerado e verificado.
-- O IPA não está assinado nem foi instalado no iPhone real; não é versão final.
-- Catálogo real e episódios seguem bloqueados até existir autorização do titular/provedor. AniBiz foi identificado como caminho B2B para investigar licenciamento, mas direitos de streaming dentro do app ainda precisam ser confirmados em `docs/providers.md`.
-- O binário atual é um protótipo técnico, não uma versão de uso final.
+- Base UIKit/AVKit com abas início, buscar, biblioteca, fontes e ajustes.
+- Camada local de favoritos/progresso com smoke test aprovado.
+- Diretório de fontes oficiais atualizado: Mercado Play (atalhos Naruto, Death Note e Hunter x Hunter), Anime Sato, Muse BR, Pluto TV, Crunchyroll Brasil no YouTube, JustWatch e MANGA Plus.
+- Build arm64 com Xcode 16.4 aprovado no CI; protótipo IPA unsigned 0.1.0 (1) gerado.
+- O IPA não está assinado nem instalado no iPhone real; não é versão final.
+- Catálogo embutido e reprodução própria seguem bloqueados até haver direitos/SDK autorizados. Os links externos são acesso aos serviços oficiais, não mídia hospedada pelo ynoanimes.
+- Qualidade 1080p/bitrate e sincronização não foram verificadas por título. Não prometer Full HD sem testes.
 
 ## Escopo planejado
 
