@@ -16,8 +16,8 @@
 
 ## O que existe no repositório
 
-- `ynoanimes/App.swift`: shell inicial UIKit com abas início, buscar, biblioteca, fontes e ajustes; diretório atualizado com Mercado Play (atalhos para Naruto, Death Note e Hunter x Hunter), Anime Sato, Muse BR, Pluto TV, Crunchyroll BR YouTube, JustWatch e MANGA Plus. Todos abrem externamente.
-- `ynoanimes/LibraryData.swift`: modelos iniciais, interface `CatalogProvider` ainda não conectada a um serviço e persistência local de favoritos/progresso.
+- `ynoanimes/App.swift`: shell UIKit com abas início, buscar, biblioteca, fontes e ajustes; busca encaminha para o JustWatch Brasil; diretório de fontes com páginas Mercado Play, playlists oficiais da Crunchyroll Brasil e Anime Sato, Muse BR, Pluto TV e MANGA Plus. Todos os vídeos/serviços abrem externamente.
+- `ynoanimes/LibraryData.swift`: persistência local de favoritos e progresso; integração de metadados removida até haver autorização compatível.
 - `Tests/LibraryStoreSmokeTests.swift`: teste automatizado de favoritos e progresso.
 - `ynoanimes.xcodeproj`: projeto Xcode para iOS 15+, Bundle ID e versão 0.1.0 (1).
 - `.github/workflows/ios-build.yml`: testes/build em macOS com Xcode; CI de push limitado a alterações de código e workflow manual disponível.
@@ -27,14 +27,14 @@
 
 ## Evidência de build mais recente
 
-- GitHub Actions run: 44993609639 — sucesso após incluir o diretório de fontes grátis.
-- Link: https://github.com/6zyloov/ynoanimes/actions/runs/44993609639
-- Commit do código compilado: 80ca6590451092409daf2ad27179d16d1caa4070.
-- Xcode 16.4; Release para generic iOS device/arm64.
-- Smoke test de favoritos/progresso: aprovado.
-- IPA unsigned gerado, baixado e validado; ZIP e Info.plist conferidos.
+- GitHub Actions run: 45039011842 — **sucesso**.
+- Link: https://github.com/6zyloov/ynoanimes/actions/runs/45039011842
+- Commit do código compilado: 365c81607a884b22145fea179a2c3de8479ca926.
+- Xcode Release para generic iOS device/arm64; smoke test local aprovado.
+- Artefato IPA unsigned: 14761026014, expira em 06/12/2026.
+- ZIP e IPA passaram no teste de integridade; Info.plist e binário arm64 conferidos.
 - Bundle ID: com.ynoez.ynoanimes; nome: yno animes; versão/build: 0.1.0 (1); MinimumOSVersion: 15.0; dispositivo iPhone.
-- SHA-256 do IPA unsigned: e64e6bae51c3b7338790807d17e70148ae3970d19475cd269e3a6d31c3d7a237.
+- SHA-256 do IPA unsigned: b3f6d814da993d1ee81943199284e6521cdedb5df6452f0923dc9ed7ae714f95.
 
 **Limite:** esse artefato ainda é protótipo. Sem assinatura/provisioning, sem instalação em iPhone real, sem catálogo interno e sem teste de playback ou qualidade por título. Não chamar de IPA final.
 
