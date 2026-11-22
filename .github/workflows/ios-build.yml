@@ -1,0 +1,60 @@
+name: ios-build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: test local library store
+        run: |
+          swiftc ynoanimes/LibraryData.swift Tests/LibraryStoreSmokeTests.swift -o /tmp/yno-library-tests
+          /tmp/yno-library-tests
+
+      - name: show xcode version
+        run: xcodebuild -version
+
+      - name: build for generic iOS device
+        run: |
+          set -o pipefail
+          mkdir -p build
+          xcodebuild \
+            -project ynoanimes.xcodeproj \
+            -scheme ynoanimes \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            build | tee build/xcodebuild.log
+
+      - name: package unsigned IPA
+        run: |
+          set -euo pipefail
+          APP_PATH="build/DerivedData/Build/Products/Release-iphoneos/ynoanimes.app"
+          test -d "$APP_PATH"
+          mkdir -p build/Payload
+          cp -R "$APP_PATH" build/Payload/ynoanimes.app
+          (cd build && /usr/bin/zip -qry ynoanimes-unsigned.ipa Payload)
+          shasum -a 256 build/ynoanimes-unsigned.ipa | tee build/ynoanimes-unsigned.ipa.sha256
+          unzip -l build/ynoanimes-unsigned.ipa | head -40
+
+      - name: upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ynoanimes-unsigned-ipa
+          path: |
+            build/ynoanimes-unsigned.ipa
+            build/ynoanimes-unsigned.ipa.sha256
+            build/xcodebuild.log
+          if-no-files-found: error
+          retention-days: 14
