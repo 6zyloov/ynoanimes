@@ -99,4 +99,6 @@ Todo recurso deve ser classificado como **implementado e testado**, **parcial**,
 - Alterações posteriores adicionaram links adicionais de fontes em App.swift; o workflow ios-build do commit 365c81607a884b22145fea179a2c3de8479ca926 está em execução na hora desta atualização.
 - A rota JustWatch testada foi https://www.justwatch.com/br/busca?q=Naruto; a página retornou resultados de busca e opções de disponibilidade no Brasil.
 
-**Pendente:** aguardar o workflow do commit 365c81607a884b22145fea179a2c3de8479ca926; depois conferir o IPA gerado e manter a classificação como unsigned/não instalável até assinatura e teste físico. Não reutilizar artefato antigo como se fosse o build mais recente.
+**Evidência atualizada do build:** workflow ios-build run 45039011842 — sucesso em 22/11/2026 para o commit 365c81607a884b22145fea179a2c3de8479ca926. Teste de LibraryStore aprovado; Xcode Release generic iOS/arm64 aprovado; IPA empacotado. Artefato GitHub Actions 14761026014, expira em 06/12/2026. ZIP e IPA passaram em unzip/test; Info.plist confirma Bundle ID com.ynoez.ynoanimes, display name yno animes, versão 0.1.0 (1), MinimumOSVersion 15.0 e iPhone. Binário Mach-O 64-bit arm64. SHA-256 do IPA: b3f6d814da993d1ee81943199284e6521cdedb5df6452f0923dc9ed7ae714f95.
+
+**Limite mantido:** o pacote não contém _CodeSignature nem embedded.mobileprovision; permanece unsigned e não está pronto para instalação normal. Não houve instalação em iPhone real nem teste visual ou de playback.
