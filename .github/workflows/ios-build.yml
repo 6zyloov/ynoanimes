@@ -55,10 +55,11 @@ jobs:
       - name: upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ynoanimes-unsigned-ipa
+          name: ynoanimes-ipa-packages
           path: |
             build/ynoanimes-unsigned.ipa
-            build/ynoanimes-unsigned.ipa.sha256
+            build/ynoanimes-trollstore.ipa
+            build/ipa-sha256.txt
             build/xcodebuild.log
           if-no-files-found: error
           retention-days: 14
