@@ -1,40 +1,49 @@
 # testes e compatibilidade
 
+Atualizado em 22/11/2026.
+
 ## dispositivo principal
 
 - iPhone 6s Plus
 - iOS 15.8.8
 - Dopamine
-- Entrega esperada: IPA
+- entrega esperada: IPA
 
-## matriz de validação
+## resultados confirmados em CI
 
-| área | verificação | estado |
+| verificação | resultado | evidência |
 |---|---|---|
-| instalação | instalar e abrir IPA no dispositivo real | pendente |
-| inicialização | abrir sem travar ou fechar inesperadamente | pendente |
-| interface | conferir telas, navegação e estados vazios | pendente |
-| catálogo | carregar e atualizar dados | pendente |
-| pesquisa | pesquisar, limpar e tratar ausência de resultados | pendente |
-| detalhes | abrir anime/mangá e navegar por temporadas/episódios | pendente |
-| favoritos | adicionar, remover e persistir após reinício | pendente |
-| histórico | registrar progresso e continuar de onde parou | pendente |
-| player | iniciar, pausar, avançar e retroceder | pendente |
-| legendas | selecionar e sincronizar quando disponíveis | pendente |
-| rede | lidar com offline, timeout e respostas inválidas | pendente |
-| desempenho | medir memória, fluidez e tempo de abertura | pendente |
+| smoke test da camada local | aprovado | teste Swift no macOS GitHub Actions |
+| favoritos local | aprovado | adicionar, remover e conferir persistência em suite isolada |
+| progresso local | aprovado | salvar, atualizar, substituir duplicata e remover |
+| versão Xcode | aprovado | Xcode 16.4 |
+| build iOS arm64 | aprovado | xcodebuild Release para generic iOS device |
+| pacote IPA | aprovado | artefato gerado no job de CI |
+| integridade ZIP | aprovado | `unzip -t` sem erros |
+| arquitetura executável | aprovado | Mach-O arm64 |
+| deployment target | aprovado | Info.plist contém MinimumOSVersion 15.0 |
+| assinatura | não concluído | build executado com CODE_SIGNING_ALLOWED=NO |
+| instalação em iPhone real | não verificado | nenhum dispositivo conectado ao CI |
+| interface em iOS 15.8.8 | não verificado | ainda não testada no dispositivo-alvo |
+| catálogo e episódios reais | bloqueado | fornecedor/titular autorizado ainda não definido |
 
-## registro de teste
+## dados do build de protótipo
 
-Para cada rodada, registrar:
+- Repositório: `6zyloov/ynoanimes`
+- Workflow: `ios-build`
+- Execução CI aprovada: `44992152325`
+- Commit de build: `f89b69d3fe777e26b036863778ccc1230830afb3`
+- Bundle ID: `com.ynoez.ynoanimes`
+- Deployment target: iOS 15.0
+- Arquitetura gerada: arm64
+- SHA-256 do IPA unsigned desta execução: `1d2b8d115b11bc5087781ea9bed968e1d951b803796f4b8fe1531d80f278ca33`
 
-- data e identificação do build;
-- dispositivo e versão do iOS;
-- passos executados;
-- resultado esperado e resultado observado;
-- capturas de tela ou logs sem dados pessoais;
-- falhas encontradas e correções.
+Este artefato é apenas um protótipo técnico. Está sem assinatura, sem catálogo real, sem episódios e sem validação em aparelho. Não classificar como IPA final.
+
+## registro obrigatório para próximos testes
+
+Para cada build instalado, registrar data, identificação, dispositivo/iOS, passos, esperado/observado, logs sem dados pessoais e falhas/correções.
 
 ## regra
 
-Não marcar um recurso como aprovado com base apenas em uma tela estática, mock, documentação ou compilação. O teste precisa exercitar o comportamento real.
+Compilação e ZIP válido não provam instalação, estabilidade nem funcionamento do catálogo/player. Só marcar um fluxo como aprovado quando testado no aparelho ou em teste automatizado apropriado.
