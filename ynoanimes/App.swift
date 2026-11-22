@@ -159,14 +159,22 @@ final class HomeScreen: UIViewController {
 
 final class SearchScreen: UIViewController, UITextFieldDelegate {
     private let field = UITextField()
-    private let feedback = YTheme.label("A busca será ativada quando uma fonte de catálogo autorizada for configurada.", 14, .regular, YTheme.muted)
+    private let feedback = YTheme.label("Pesquise animes pelo título. O catálogo mostra informações e não hospeda episódios.", 14, .regular, YTheme.muted)
+    private let resultsStack = UIStackView()
+    private let loadMoreButton = UIButton(type: .system)
+    private let catalog: CatalogProvider = AniListCatalogProvider()
+    private var currentQuery = ""
+    private var currentPage = 1
+    private var isLoading = false
+    private var activeSearchID = UUID()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "buscar"
         view.backgroundColor = YTheme.bg
         navigationItem.largeTitleDisplayMode = .always
-        field.placeholder = "nome do anime ou mangá"
+
+        field.placeholder = "nome do anime"
         field.textColor = YTheme.white
         field.tintColor = YTheme.white
         field.backgroundColor = YTheme.card
@@ -178,35 +186,135 @@ final class SearchScreen: UIViewController, UITextFieldDelegate {
         field.returnKeyType = .search
         field.delegate = self
         field.heightAnchor.constraint(equalToConstant: 52).isActive = true
-        feedback.textAlignment = .center
 
-        let stack = UIStackView(arrangedSubviews: [field, feedback])
+        resultsStack.axis = .vertical
+        resultsStack.spacing = 12
+        resultsStack.translatesAutoresizingMaskIntoConstraints = false
+
+        loadMoreButton.setTitle("carregar mais", for: .normal)
+        loadMoreButton.setTitleColor(YTheme.white, for: .normal)
+        loadMoreButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        loadMoreButton.backgroundColor = YTheme.raised
+        loadMoreButton.layer.cornerRadius = 12
+        loadMoreButton.contentEdgeInsets = UIEdgeInsets(top: 13, left: 18, bottom: 13, right: 18)
+        loadMoreButton.addTarget(self, action: #selector(loadMore), for: .touchUpInside)
+        loadMoreButton.isHidden = true
+
+        let stack = UIStackView(arrangedSubviews: [field, feedback, resultsStack, loadMoreButton])
         stack.axis = .vertical
-        stack.spacing = 22
+        stack.spacing = 18
         stack.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(stack)
+
+        let scroll = UIScrollView()
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scroll)
+        scroll.addSubview(stack)
         NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 22),
-            stack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            scroll.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scroll.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scroll.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scroll.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stack.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor, constant: 22),
+            stack.leadingAnchor.constraint(equalTo: scroll.frameLayoutGuide.leadingAnchor, constant: 20),
+            stack.trailingAnchor.constraint(equalTo: scroll.frameLayoutGuide.trailingAnchor, constant: -20),
+            stack.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor, constant: -24)
         ])
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         guard let query = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !query.isEmpty else { return true }
-        UnconfiguredCatalogProvider().searchAnime(query: query) { [weak self] result in
+        startSearch(query)
+        return true
+    }
+
+    private func startSearch(_ query: String) {
+        activeSearchID = UUID()
+        currentQuery = query
+        currentPage = 1
+        isLoading = false
+        resultsStack.arrangedSubviews.forEach {
+            resultsStack.removeArrangedSubview($0)
+            $0.removeFromSuperview()
+        }
+        loadMoreButton.isHidden = true
+        loadPage(1)
+    }
+
+    private func loadPage(_ page: Int) {
+        guard !isLoading, !currentQuery.isEmpty else { return }
+        isLoading = true
+        loadMoreButton.isEnabled = false
+        feedback.text = page == 1 ? "buscando no catálogo..." : "carregando mais títulos..."
+        let searchID = activeSearchID
+
+        catalog.searchAnime(query: currentQuery, page: page) { [weak self] result in
             DispatchQueue.main.async {
+                guard let self, self.activeSearchID == searchID else { return }
+                self.isLoading = false
+                self.loadMoreButton.isEnabled = true
+
                 switch result {
-                case .success(let items): self?.feedback.text = "\(items.count) resultado(s)."
-                case .failure(.providerNotConfigured):
-                    self?.feedback.text = "A fonte de catálogo ainda não foi conectada. A busca não consulta serviços não autorizados."
-                case .failure(.unavailable):
-                    self?.feedback.text = "O catálogo está temporariamente indisponível."
+                case .success(let items):
+                    if page == 1 && items.isEmpty {
+                        self.feedback.text = "Nenhum anime encontrado para esta busca."
+                    } else if items.isEmpty {
+                        self.feedback.text = "Fim dos resultados."
+                    } else {
+                        self.feedback.text = "Resultados do catálogo AniList · página \(page)."
+                        items.forEach { self.resultsStack.addArrangedSubview(self.makeResultCard($0)) }
+                    }
+                    self.currentPage = page + 1
+                    self.loadMoreButton.isHidden = items.count < 20
+                case .failure:
+                    self.feedback.text = "Não foi possível consultar o AniList agora. Tente novamente."
+                    self.loadMoreButton.isHidden = page == 1
                 }
             }
         }
-        return true
+    }
+
+    @objc private func loadMore() {
+        loadPage(currentPage)
+    }
+
+    private func makeResultCard(_ anime: Anime) -> UIView {
+        let card = YTheme.makeCard()
+        let titleLabel = YTheme.label(anime.title, 17, .semibold)
+        let sourceLabel = YTheme.label("AniList · metadados", 11, .medium, YTheme.muted)
+        let synopsisText = anime.synopsis?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let synopsis = YTheme.label(
+            (synopsisText?.isEmpty == false ? synopsisText! : "Sinopse não informada."),
+            13, .regular, YTheme.muted
+        )
+        synopsis.numberOfLines = 3
+
+        let detailsButton = UIButton(type: .system)
+        detailsButton.setTitle("ver ficha no anilist ↗", for: .normal)
+        detailsButton.setTitleColor(YTheme.white, for: .normal)
+        detailsButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
+        detailsButton.contentHorizontalAlignment = .left
+        detailsButton.accessibilityIdentifier = anime.id
+        detailsButton.addTarget(self, action: #selector(openAnimeDetails(_:)), for: .touchUpInside)
+
+        let stack = UIStackView(arrangedSubviews: [sourceLabel, titleLabel, synopsis, detailsButton])
+        stack.axis = .vertical
+        stack.spacing = 9
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        card.addSubview(stack)
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: card.topAnchor, constant: 16),
+            stack.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 16),
+            stack.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -16),
+            stack.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -16)
+        ])
+        return card
+    }
+
+    @objc private func openAnimeDetails(_ sender: UIButton) {
+        guard let id = sender.accessibilityIdentifier,
+              let url = URL(string: "https://anilist.co/anime/\(id)/") else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 
