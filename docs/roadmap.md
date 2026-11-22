@@ -18,7 +18,7 @@ Atualizado em 22/11/2026.
 - [x] Identificar categoria anime grátis da Pluto TV Brasil.
 - [x] Atualizar diretório de fontes no app.
 - [ ] Verificar individualmente disponibilidade, idioma, áudio e qualidade máxima dos títulos no iPhone.
-- [ ] Adicionar busca de disponibilidade por título usando fontes permitidas.
+- [x] Adicionar busca externa de disponibilidade por título via JustWatch Brasil (sem API de parceiro).
 - [ ] Verificar se há programa de incorporação oficial sem custo (ex. YouTube IFrame Player) que se adeque às políticas do serviço.
 - [ ] Não contratar serviços pagos nem APIs pagas sem aprovação.
 
@@ -45,7 +45,8 @@ Atualizado em 22/11/2026.
 - [ ] Validar bitrate, proporção, áudio, sincronização de legendas e buffering.
 - [ ] Testar Wi-Fi/4G e retomada de reprodução.
 - [ ] Testar UI e desempenho no iPhone 6s Plus/iOS 15.8.8.
-- [ ] Configurar assinatura/instalação compatível com Dopamine e testar IPA.
+- [x] Gerar no CI IPA unsigned e variante Mach-O fakesigned para TrollStore via ldid.
+- [ ] Instalar pelo TrollStore e validar abertura no iPhone 6s Plus/iOS 15.8.8.
 
 ## bloqueadores
 
