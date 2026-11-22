@@ -1,59 +1,58 @@
 # roadmap — yno animes
 
-Atualizado em 22/11/2026. Marque como concluído somente depois de implementar e validar.
+Atualizado em 22/11/2026.
 
-## fase 0 — preparação e referência
+## fase 0 — referência e estrutura
 
-- [x] Criar repositório e documentar o objetivo.
-- [x] Receber e inventariar a amostra APK por análise estática.
-- [ ] Capturar e catalogar telas/fluxos do Tomato com referência visual legítima.
-- [ ] Documentar estados de erro, vazio, loading, perfil e reprodução com evidências.
+- [x] Receber e inventariar APK por análise estática.
+- [x] Criar projeto iOS UIKit com deployment target 15.0.
+- [x] Criar shell escuro com abas.
+- [x] Criar diretório de links oficiais externos.
+- [ ] Capturar e catalogar fluxos visuais do Tomato com referência legítima.
 
-## fase 1 — arquitetura e base iOS
+## fase 1 — fontes com orçamento zero
 
-- [x] Criar projeto Xcode UIKit com deployment target iOS 15.0.
-- [x] Configurar build CI para dispositivo genérico arm64.
-- [x] Implementar persistência local básica de favoritos e progresso.
-- [x] Executar smoke test automatizado de persistência em macOS CI.
-- [x] Compilar a base no Xcode CI e empacotar IPA sem assinatura.
-- [ ] Testar instalação e abertura em iPhone 6s Plus/iOS 15.8.8.
-- [ ] Completar modelos, repositórios e tratamento de erros.
-- [ ] Definir fornecedor autorizado de metadados/imagens.
-- [ ] Definir fornecedor/titular autorizado de episódios e reprodução.
+- [x] Identificar Mercado Play e páginas gratuitas de Naruto, Death Note e Hunter x Hunter.
+- [x] Identificar canal oficial gratuito Anime Sato.
+- [x] Identificar canal oficial Muse BR.
+- [x] Identificar categoria anime grátis da Pluto TV Brasil.
+- [x] Atualizar diretório de fontes no app.
+- [ ] Verificar individualmente disponibilidade, idioma, áudio e qualidade máxima dos títulos no iPhone.
+- [ ] Adicionar busca de disponibilidade por título usando fontes permitidas.
+- [ ] Verificar se há programa de incorporação oficial sem custo (ex. YouTube IFrame Player) que se adeque às políticas do serviço.
+- [ ] Não contratar serviços pagos nem APIs pagas sem aprovação.
 
-## fase 2 — experiência visual e navegação
+## fase 2 — catálogo e descoberta
 
-- [x] Criar shell inicial escuro com abas início/buscar/biblioteca/fontes/ajustes.
-- [x] Adicionar diretório de links externos para fontes oficiais e leitura de mangá.
-- [ ] Refinar interface baseada nas evidências do app de referência, sem copiar ativos proprietários.
-- [ ] Implementar catálogo paginado, pesquisa real, categorias e detalhes.
-- [ ] Implementar tela de anime, temporadas e episódios.
-- [ ] Implementar leitor de mangá interno, se houver fonte autorizada.
-- [ ] Validar layout no tamanho de tela do iPhone 6s Plus.
+- [ ] Definir provedor de metadados compatível com uso não comercial e exibição em app.
+- [ ] Implementar pesquisa, categorias, detalhes e links de “assistir oficialmente”.
+- [ ] Persistir favoritos e histórico com UI conectada.
+- [ ] Implementar catálogo separado por fonte, idioma e tipo (on-demand/linear).
+- [ ] Indicar de forma clara quando o título é grátis, exige assinatura ou tem disponibilidade regional.
 
-## fase 3 — recursos locais e reprodução
+## fase 3 — player e leitor
 
-- [x] Persistir favoritos localmente (camada de dados).
-- [x] Persistir e atualizar progresso local (camada de dados).
-- [ ] Conectar controles visuais de favoritos e progresso à interface.
-- [ ] Integrar AVPlayer com mídia HLS de teste própria/autorizada.
-- [ ] Integrar seleção de faixas/legendas suportadas pela fonte autorizada.
-- [ ] Validar continuar assistindo e próximo episódio.
-- [ ] Conectar login apenas se houver fluxo oficial autorizado e necessário.
+- [x] Criar base AVPlayer, ainda sem fonte de mídia real.
+- [ ] Desenvolver player com mídia própria/licenciada de teste.
+- [ ] Verificar opção de player oficial incorporável (YouTube) sem tirar anúncios, controles, legendas ou recursos do serviço.
+- [ ] Não extrair links de streaming de páginas, players ou apps de terceiros.
+- [ ] Não usar AVPlayer para reproduzir streams de sites sem autorização.
+- [ ] Incluir suporte a legendas apenas nos formatos fornecidos/autorizados pela fonte.
 
-## fase 4 — validação e distribuição
+## fase 4 — qualidade e dispositivo-alvo
 
-- [x] Build arm64 para iOS por GitHub Actions/Xcode.
-- [x] Criar artefato IPA unsigned de protótipo e validar a estrutura ZIP.
-- [ ] Configurar assinatura/instalação conforme método compatível com o iPhone-alvo.
-- [ ] Instalar em dispositivo-alvo e testar todos os fluxos.
-- [ ] Medir inicialização, memória, fluidez e bateria.
-- [ ] Publicar build testado com changelog e SHA-256.
+- [ ] Definir qualidade mínima por título: preferir 1920×1080 real; não fazer upscale artificial.
+- [ ] Validar bitrate, proporção, áudio, sincronização de legendas e buffering.
+- [ ] Testar Wi-Fi/4G e retomada de reprodução.
+- [ ] Testar UI e desempenho no iPhone 6s Plus/iOS 15.8.8.
+- [ ] Configurar assinatura/instalação compatível com Dopamine e testar IPA.
 
-## bloqueador externo
+## bloqueadores
 
-A reprodução real de episódios depende de autorização do titular/provedor. Os candidatos e seus formulários oficiais estão em `docs/providers.md`. A análise de rotas no APK não concede autorização para acessar/reutilizar o backend Tomato.
+- Reprodução própria de episódios exige autorização do titular ou SDK/player de integração explicitamente permitido.
+- A gratuidade do conteúdo para o espectador não concede direitos ao ynoanimes para copiar/retransmitir/incorporar.
+- Os serviços pagos (Crunchyroll sob demanda, AniBiz Pro/VIP, APIs comerciais) não serão contratados sem autorização expressa.
 
-## regra de conclusão
+## regra
 
-Cada item precisa de implementação verificável e teste registrado em `docs/testing.md`. Planejamento, link externo ou documentação, isoladamente, não significa que o catálogo/player está funcionando.
+Marcar como **implementado e testado**, **parcial**, **planejado**, **não verificado** ou **bloqueado**. Link externo, tela ou build não prova playback funcional.
