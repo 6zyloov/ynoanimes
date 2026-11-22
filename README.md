@@ -35,7 +35,7 @@ Nenhuma funcionalidade está marcada como concluída apenas por estar documentad
 - Busca abre o JustWatch Brasil. Não há API de parceiro nem scraping.
 - Diretório inclui páginas Mercado Play, playlists oficiais Crunchyroll Brasil/Anime Sato, Muse BR, Pluto TV, JustWatch e MANGA Plus; as fontes de vídeo abrem externamente.
 - Build arm64 e dois pacotes IPA versão 0.1.0 (1) passaram no Xcode 16.4/GitHub Actions.
-- IPA TrollStore fakesigned com ldid, pronto para ser importado pelo TrollStore; SHA-256: `7461c5b2ce0d6c5569ccec89b00a9fb7d75b36341aa56917b561af1422231ecc`.
+- IPA TrollStore fakesigned com ldid, pronto para ser importado pelo TrollStore; SHA-256: `f3aedbd61aefa9fd4b24e3a3081e320e05ea25dbaf3b517c15a17171075a5d96`.
 - O pacote não tem certificado Apple/provisioning profile e ainda não foi instalado no iPhone real. A instalação no TrollStore permanece não verificada.
 - O catálogo e os episódios não estão integrados ao player do ynoanimes. Os serviços da aba fontes abrem externamente.
 - Resolução e bitrate não foram verificados por título; não prometer Full HD antes dos testes.
