@@ -347,22 +347,20 @@ final class PlaybackScreen: AVPlayerViewController {
                 let label = option.displayName
                 let language = option.extendedLanguageTag ?? ""
                 let title = language.isEmpty ? label : "\(label) · \(language)"
-                let action = UIAlertAction(title: title, style: .default) { [weak item] _ in
+                let selected = item.currentMediaSelection.selectedMediaOption(in: group)?.isEqual(option) == true
+                let actionTitle = selected ? "✓ " + title : title
+                let action = UIAlertAction(title: actionTitle, style: .default) { [weak item] _ in
                     item?.select(option, in: group)
-                }
-                if item.currentMediaSelection.selectedMediaOption(in: group)?.isEqual(option) == true {
-                    action.setValue(true, forKey: "checked")
                 }
                 alert.addAction(action)
             }
         }
 
         for edition in media.alternateEditions {
-            let action = UIAlertAction(title: edition.label, style: .default) { [weak self] _ in
+            let selected = activeEditionLanguage == edition.languageCode
+            let actionTitle = selected ? "✓ " + edition.label : edition.label
+            let action = UIAlertAction(title: actionTitle, style: .default) { [weak self] _ in
                 self?.switchEdition(edition)
-            }
-            if activeEditionLanguage == edition.languageCode {
-                action.setValue(true, forKey: "checked")
             }
             alert.addAction(action)
         }
