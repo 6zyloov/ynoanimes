@@ -27,27 +27,16 @@
 
 ## Evidência de build mais recente
 
-- Execução GitHub Actions: `44992828700` — sucesso.
-- Link: https://github.com/6zyloov/ynoanimes/actions/runs/44992828700
-- Commit compilado: `dd0e00b6165bdc65e357a6249bc7209573d833a4`.
+- GitHub Actions run: 44993609639 — sucesso após incluir o diretório de fontes grátis.
+- Link: https://github.com/6zyloov/ynoanimes/actions/runs/44993609639
+- Commit do código compilado: 80ca6590451092409daf2ad27179d16d1caa4070.
 - Xcode 16.4; Release para generic iOS device/arm64.
 - Smoke test de favoritos/progresso: aprovado.
-- IPA ZIP: gerado, baixado e validado; Info.plist e arquitetura conferidos.
-- Bundle ID: `com.ynoez.ynoanimes`; nome: `yno animes`; versão: `0.1.0 (1)`; MinimumOSVersion: `15.0`.
-- SHA-256 do IPA unsigned: `a97fb0ae2a898ff4bd36d52ea098e9cc5a661fe678862245b07c3e38df1c2d59`.
+- IPA unsigned gerado, baixado e validado; ZIP e Info.plist conferidos.
+- Bundle ID: com.ynoez.ynoanimes; nome: yno animes; versão/build: 0.1.0 (1); MinimumOSVersion: 15.0; dispositivo iPhone.
+- SHA-256 do IPA unsigned: e64e6bae51c3b7338790807d17e70148ae3970d19475cd269e3a6d31c3d7a237.
 
-**Limite:** esse IPA não é uma entrega pronta para uso. Foi compilado com assinatura desativada, contém apenas o shell e links externos, não tem catálogo/episódios integrados, não foi instalado no iPhone real e não teve a interface testada no iOS 15.8.8. Não chamar de IPA final.
-
-## Fontes gratuitas e gratuitas no Brasil
-
-- Mercado Play: páginas oficiais marcadas como grátis para Naruto, Death Note e Hunter x Hunter; atalhos no app. Disponibilidade por temporada/episódio pode mudar.
-- Anime Sato: canal oficial gratuito da Sato Company no YouTube; série e playlist em português foram identificadas.
-- Muse BR: canal oficial de distribuidora no YouTube; confirmar títulos por vídeo.
-- Pluto TV: categoria brasileira Anime/Geek gratuita com anúncios e programação rotativa.
-- Crunchyroll BR no YouTube: vídeos selecionados; o plano gratuito sob demanda da plataforma terminou em 31/12/2025.
-- JustWatch só localiza onde assistir; não fornece episódios.
-
-Qualidade máxima (1080p+), bitrate, faixa de áudio e sincronização de legendas **não foram verificadas vídeo a vídeo**. O app não deve prometer Full HD sem inspeção do player de cada obra. As fontes ficam externas; gratuidade para o espectador não autoriza redistribuição ou incorporação.
+**Limite:** esse artefato ainda é protótipo. Sem assinatura/provisioning, sem instalação em iPhone real, sem catálogo interno e sem teste de playback ou qualidade por título. Não chamar de IPA final.
 
 ## Fontes encontradas
 
