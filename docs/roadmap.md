@@ -24,7 +24,7 @@ Atualizado em 22/11/2026.
 
 ## fase 2 — catálogo e descoberta
 
-- [ ] Definir provedor de metadados compatível com uso não comercial e exibição em app.
+- [ ] Definir provedor de metadados com autorização expressa para uso em app independente/comercial; até lá, manter busca externa pelo JustWatch e não consultar AniList/Kitsu sem permissão.
 - [ ] Implementar pesquisa, categorias, detalhes e links de “assistir oficialmente”.
 - [ ] Persistir favoritos e histórico com UI conectada.
 - [ ] Implementar catálogo separado por fonte, idioma e tipo (on-demand/linear).
