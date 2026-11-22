@@ -1,5 +1,34 @@
 # fontes de catálogo, streaming e licenciamento — ynoanimes
 
+## 0. Melhor porta de entrada B2B encontrada — AniBiz
+
+<badge>Prioridade máxima para investigar</badge>
+
+- Plataforma oficial: https://anibiz.com/
+- Portal para licensees: https://anibiz.com/lp/licensee
+- Sobre e contato: https://anibiz.com/about
+- Canal comercial publicado: `cs@anibiz.com`
+- A plataforma se descreve como um marketplace B2B que conecta titulares de direitos de anime — estúdios, comitês de produção e empresas de gestão de direitos — a licensees qualificados. A página para licensees cita expressamente startups, distribuidores, criadores e game studios; também menciona aplicações/uso de anime IP em produtos e propostas de licença enviadas diretamente aos licensors.
+- Em 27/10/2026, a Nakama anunciou que a AniBiz já reunia mais de 30 licensors e recebeu investimento estratégico de TBS Group, Toei Animation e TV TOKYO Holdings. A notícia diz que empresas do mundo todo, incluindo desenvolvedores de apps, podem se cadastrar gratuitamente e passar por verificação.
+- **Modelo informado no portal:** perfil Basic gratuito; plano Pro anunciado a US$ 49/mês, com perfil verificado e até 5 pedidos de licença; plano VIP sob consulta. Não foi contratada nem paga nenhuma modalidade.
+
+### Limite que precisa ser confirmado
+
+AniBiz é a melhor porta de entrada para negociar direitos de anime IP, mas as páginas públicas consultadas não confirmam que a categoria de licença disponível inclui **direitos audiovisuais de streaming (SVOD/TVOD/AVOD) dentro de um app de terceiros**. A menção a startups e app developers não garante, por si só, direitos de episódio, arquivos de mídia, URLs HLS, DRM, legendas ou distribuição por iOS.
+
+**Próximo passo comercial recomendado:** perguntar primeiro a `cs@anibiz.com` se os licensors da plataforma aceitam propostas de *audiovisual digital distribution / in-app streaming rights* para um aplicativo independente no Brasil. Só depois de uma resposta positiva faz sentido criar perfil, identificar títulos e submeter propostas. Não aderir ao Pro/VIP nem pagar sem aprovação explícita do responsável.
+
+Perguntas obrigatórias ao marketplace/licensor:
+1. A licença contempla reprodução de episódios completos dentro de app iOS independente, e não apenas uso de personagens/marca, merchandising ou promoção?
+2. O território pode incluir Brasil e qual o prazo/janela?
+3. Há master files, HLS/SDK ou API de playback fornecidos pelo titular, com legendas PT-BR e faixas de áudio?
+4. Qual modelo comercial, royalties, mínimo garantido, reporting e limite de usuários?
+5. Quais são as exigências de DRM, geoblocking, publicidade, classificação indicativa e auditoria?
+
+**Classificação:** **planejado** — contato não enviado; conta não criada; categoria de streaming não confirmada; nenhum direito adquirido.
+
+---
+
 **Pesquisa atualizada:** 22/11/2026  
 **Região inicial:** Brasil  
 **Objetivo:** fontes legítimas para metadados, descoberta de onde assistir e, principalmente, direitos de reprodução de episódios dentro de um aplicativo iOS independente.
