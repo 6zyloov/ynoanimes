@@ -2,7 +2,7 @@
 
 **Atualizado:** 22/11/2026  
 **Repositório:** https://github.com/6zyloov/ynoanimes  
-**Prioridade:** obter uma fonte autorizada para metadados e episódios; depois implementar e validar o app completo.
+**Prioridade:** avançar o app sem depender de endpoints privados; negociar direitos de catálogo e episódios com distribuidores oficiais.
 
 ## Identidade e alvo
 
@@ -12,58 +12,74 @@
 - Deployment target: iOS 15.0
 - Bundle ID: `com.ynoez.ynoanimes`
 - Visual: minimalista, preto prioritário, branco como contraste
-- Entrega esperada: IPA compilado, assinado conforme o método de instalação e testado no aparelho real
+- Entrega final esperada: IPA compatível, assinado pelo método de instalação escolhido e testado no aparelho real.
 
 ## O que existe no repositório
 
-- `ynoanimes/App.swift`: shell inicial UIKit com abas início/buscar/biblioteca/ajustes e tela base de AVPlayer.
-- `ynoanimes/LibraryData.swift`: modelos iniciais, interface de fornecedor de catálogo ainda não configurada e persistência local de favoritos/progresso.
+- `ynoanimes/App.swift`: shell inicial UIKit com abas início, buscar, biblioteca, fontes e ajustes; diretório de fontes oficiais abre os serviços fora do app.
+- `ynoanimes/LibraryData.swift`: modelos iniciais, interface `CatalogProvider` ainda não conectada a um serviço e persistência local de favoritos/progresso.
 - `Tests/LibraryStoreSmokeTests.swift`: teste automatizado de favoritos e progresso.
-- `ynoanimes.xcodeproj`: projeto Xcode para iOS 15+.
-- `.github/workflows/ios-build.yml`: build/teste em macOS com Xcode e pacote IPA unsigned.
+- `ynoanimes.xcodeproj`: projeto Xcode para iOS 15+, Bundle ID e versão 0.1.0 (1).
+- `.github/workflows/ios-build.yml`: testes/build em macOS com Xcode; CI de push limitado a alterações de código e workflow manual disponível.
 - `docs/reverse-engineering.md`: inventário estático da amostra Tomato.
-- `docs/providers.md`: avaliação de provedores e restrições.
-- `docs/roadmap.md` e `docs/testing.md`: planejamento e evidências de teste.
+- `docs/providers.md`: plataformas oficiais, distribuidores e canais de licenciamento.
+- `docs/roadmap.md`, `docs/testing.md` e este arquivo: planejamento e evidências.
 
-## Evidência de build
+## Evidência de build mais recente
 
-- Commit de código que compilou: `f89b69d3fe777e26b036863778ccc1230830afb3`.
-- GitHub Actions run: `44992152325` — concluído com sucesso.
-- Xcode: 16.4; build Release para generic iOS device/arm64.
-- Smoke test: aprovado.
-- IPA ZIP: gerado e validado com `unzip -t`.
-- Bundle ID: `com.ynoez.ynoanimes`; MinimumOSVersion: `15.0`.
-- SHA-256 do protótipo unsigned: `1d2b8d115b11bc5087781ea9bed968e1d951b803796f4b8fe1531d80f278ca33`.
+- Execução GitHub Actions: `44992828700` — sucesso.
+- Link: https://github.com/6zyloov/ynoanimes/actions/runs/44992828700
+- Commit compilado: `dd0e00b6165bdc65e357a6249bc7209573d833a4`.
+- Xcode 16.4; Release para generic iOS device/arm64.
+- Smoke test de favoritos/progresso: aprovado.
+- IPA ZIP: gerado, baixado e validado; Info.plist e arquitetura conferidos.
+- Bundle ID: `com.ynoez.ynoanimes`; nome: `yno animes`; versão: `0.1.0 (1)`; MinimumOSVersion: `15.0`.
+- SHA-256 do IPA unsigned: `a97fb0ae2a898ff4bd36d52ea098e9cc5a661fe678862245b07c3e38df1c2d59`.
 
-**Esse IPA NÃO é uma versão pronta para instalação/uso:** foi gerado com assinatura desativada, contém somente o shell inicial, não tem catálogo real nem integração de episódios e não foi instalado no iPhone real. A versão do executável precisa ser refeita após alterações recentes de metadados/projeto.
+**Limite:** esse IPA não é uma entrega pronta para uso. Foi compilado com assinatura desativada, contém apenas o shell e links externos, não tem catálogo/episódios integrados, não foi instalado no iPhone real e não teve a interface testada no iOS 15.8.8. Não chamar de IPA final.
 
-## Engenharia reversa — limites
+## Fontes encontradas
 
-A análise estática identificou a estrutura Android/React Native, módulos de API, player, legendas e mangás, além de rotas em strings/classes. Nenhuma rota do Tomato foi chamada e a presença de rotas não autoriza sua reutilização. Não usar credenciais, cookies, tokens, assinaturas, endpoints privados ou controles de acesso extraídos do APK.
+### Fontes de vídeo/leitura que podem ser abertas externamente
 
-## Bloqueador externo atual
+- Muse BR — https://www.youtube.com/@musebrtv
+- Crunchyroll Brasil (YouTube) — https://www.youtube.com/channel/UCVc-JLY3Db6-O48y7TS4N7Q
+- Crunchyroll — https://www.crunchyroll.com/pt-br
+- Pluto TV Brasil — https://pluto.tv/br/live-tv
+- JustWatch Brasil — https://www.justwatch.com/br (localiza onde assistir; não fornece episódios)
+- MANGA Plus — https://mangaplus.shueisha.co.jp/ (abrir o serviço oficial; não extrair páginas)
 
-Ainda não há provedor confirmado que autorize:
-1. uso de metadados e imagens dentro de app independente; e
-2. streaming de episódios dentro do app.
+Esses links estão no diretório da aba “fontes”. Eles **não** conferem direitos para copiar, incorporar ou reproduzir o conteúdo dentro do ynoanimes.
 
-- Kitsu: requer termos específicos/autorização para API; os Termos públicos restringem uso de conteúdo fora da plataforma.
-- AniList: termos restringem serviços concorrentes de lista/tracking; autorização necessária.
-- Jikan público: descontinuado em 01/10/2026.
-- TMDB: pode servir a metadados sob licença adequada, mas não fornece episódios.
-- YouTube: não é fonte genérica de episódios e tem restrições fortes sobre cópia/offline.
+### Prioridade para licenciamento OTT
 
-## Próxima ação
+1. Sato Company — Brasil, anime/tokusatsu, agregação e distribuição OTT SVOD/TVOD/AVOD. Contato público: https://sato.tv.br/fale-conosco/ ; telefone publicado: +55 11 4134-4455.
+2. Artworks Entertainment — catálogo de animação/anime e operação de distribuição linear e não linear; contato: https://www.artworks-ent.com/pt/contact-us.
+3. MUSE Communication — formulário Film & Television aceita consultas “OTT Platform” e “Internet”; confirmar território Brasil/América Latina: https://www.e-muse.com/en/media-contact/.
+4. Bandai Namco Filmworks — formulário de negócios internacionais: https://support.bnfw.co.jp/support/contact/global.
+5. Kodansha Licensing — formulário específico para vídeo/animação, condicionado à disponibilidade por título e território: https://rights-form.kodansha.co.jp/VideoGoodsForms?language=en.
 
-**Aguardar uma fonte/provedor/titular legítimo e sua documentação de integração e autorização.** Depois:
-1. definir `CatalogProvider` concreto e testar chamadas permitidas;
-2. implementar catálogo real, busca, detalhes, episódios e leitor;
-3. ligar favoritos/histórico à interface;
-4. validar AVPlayer com mídia própria/licenciada;
-5. adicionar assinatura/instalação conforme método permitido;
-6. executar testes no iPhone 6s Plus/iOS 15.8.8;
-7. entregar somente quando instalação e fluxos reais estiverem verificados.
+**Nenhum contato comercial foi enviado e nenhuma licença foi concedida.** Consultas devem pedir direitos de SVOD/TVOD/AVOD para app independente no Brasil, entrega HLS/SDK, legendas/faixas de áudio, DRM, janelas, território, limites de usuários e modelo comercial. Mais detalhes e fontes em `docs/providers.md`.
+
+## Restrições técnicas e de segurança
+
+- Não reutilizar tokens, cookies, credenciais, assinaturas, endpoints privados ou controles de acesso do Tomato.
+- Não fazer scraping de sites de streaming, extrair URLs internas de players nem usar playlists de terceiros.
+- YouTube, Pluto TV e MANGA Plus ficam como links externos até existir autorização clara para a modalidade de incorporação.
+- Metadados também precisam de licença/termos compatíveis; catálogo não concede direitos de episódios.
+- JustWatch Partner API exige contrato/token e serve à disponibilidade/links, não fornece mídia.
+- O player AVPlayer deve usar somente mídia HLS/DASH própria ou fornecida por titular/provedor com autorização explícita.
+
+## Próximas ações
+
+1. Manter a base UIKit e corrigir problemas visuais/funcionais sem recomeçar do zero.
+2. Preparar consultas comerciais para Sato Company e Artworks, e em paralelo MUSE se os direitos cobrirem Brasil.
+3. Continuar a integração local de favoritos e histórico às telas.
+4. Desenvolver AVPlayer com mídia de teste própria/licenciada e validar legendas suportadas.
+5. Só conectar catálogo, imagens e episódios depois da confirmação escrita dos direitos.
+6. Configurar assinatura/instalação compatível com Dopamine e testar no iPhone 6s Plus/iOS 15.8.8.
+7. Entregar apenas quando a instalação e os fluxos reais estiverem verificados.
 
 ## Regra de classificação
 
-Todo recurso recebe um estado: **implementado e testado**, **parcial**, **planejado**, **não verificado** ou **bloqueado**. Compilar ou gerar telas não é prova de funcionamento real.
+Todo recurso deve ser classificado como **implementado e testado**, **parcial**, **planejado**, **não verificado** ou **bloqueado**. Build, link, tela ou documentação isolados não provam funcionamento real.
