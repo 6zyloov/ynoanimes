@@ -25,6 +25,19 @@ Perguntas obrigatórias ao marketplace/licensor:
 4. Qual modelo comercial, royalties, mínimo garantido, reporting e limite de usuários?
 5. Quais são as exigências de DRM, geoblocking, publicidade, classificação indicativa e auditoria?
 
+### Due diligence obrigatória na AniBiz
+
+Os próprios Termos (atualizados em 01/07/2026) dizem que a Nakama/AniBiz é apenas um marketplace B2B neutro, não é parte nos contratos entre usuários e **não verifica propriedade, cadeia de titularidade, validade, território nem autoridade dos direitos listados**. Também afirmam que a plataforma não cria licença: o direito só nasce de um contrato separado, diretamente entre as partes. A conta exige idade mínima de 18 anos/maioridade e capacidade legal para contratar.
+
+Portanto, tratar os selos/perfis da plataforma somente como ponto de descoberta. Antes de pagar ou integrar qualquer obra, exigir documentos de cadeia de titularidade e confirmar por contrato assinado:
+- qual pessoa jurídica é a titular ou representante autorizado;
+- quais direitos audiovisuais exatos estão licenciados (episódios completos, não apenas personagens, marcas ou promoção);
+- Brasil, prazo, modalidades SVOD/TVOD/AVOD, número de usuários e exclusividade;
+- autorização expressa para app iOS de terceiros, fornecimento/hosting da mídia, HLS/SDK, DRM, legendas e faixas de áudio;
+- garantias de titularidade, indenização, auditoria, pagamentos, reporting e rescisão.
+
+Fontes: https://anibiz.com/legal/terms-of-service (seções 1–3) e https://anibiz.com/about.
+
 **Classificação:** **planejado** — contato não enviado; conta não criada; categoria de streaming não confirmada; nenhum direito adquirido.
 
 ---
