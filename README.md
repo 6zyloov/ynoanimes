@@ -11,14 +11,14 @@ Projeto independente para reconstruir no iOS a experiência do aplicativo Androi
 
 - [x] Repositório criado e documentação inicial preparada
 - [x] Receber e identificar estruturalmente o APK de referência (análise estática; execução não verificada)
-- [x] Definir uma base iOS com deployment target 15.0 e build arm64 em CI (ainda sem teste no aparelho)
-- [x] Criar app UIKit com navegação inferior e diretório de fontes oficiais
+- [x] Definir uma base iOS com deployment target 15.0 e build arm64 em CI (protótipo mínimo; ainda sem teste no aparelho)
+- [x] Criar shell UIKit com navegação inferior e diretório de fontes oficiais (**protótipo**, não port funcional)
 - [x] Refazer a tela inicial e implementar biblioteca local com cadastro/status/remoção de títulos
 - [x] Implementar busca externa de disponibilidade pelo JustWatch Brasil
 - [x] Testar inclusão, deduplicação, alteração de status e remoção da biblioteca no CI
-- [ ] Integrar catálogo de metadados autorizado, categorias e detalhes
+- [ ] Implementar catálogo integrado, categorias, detalhes, temporadas e episódios
 - [ ] Integrar favoritos e histórico de reprodução a um catálogo/player autorizado
-- [ ] Implementar player, legendas e controles
+- [ ] Implementar player real, legendas, seleção de faixas, velocidade, seek e PiP
 - [ ] Validar login e integrações permitidas
 - [ ] Compilar, instalar e testar o IPA no dispositivo-alvo
 - [ ] Revisar desempenho, acessibilidade e estabilidade
@@ -34,9 +34,11 @@ Nenhuma funcionalidade está marcada como concluída apenas por estar documentad
 - Biblioteca local permite cadastrar títulos manualmente e organizar por “quero assistir”, “assistindo”, “concluído” e “pausado”; testes de dados passaram no CI.
 - Busca abre o JustWatch Brasil. Não há API de parceiro nem scraping.
 - Diretório inclui páginas Mercado Play, playlists oficiais Crunchyroll Brasil/Anime Sato, Muse BR, Pluto TV, JustWatch e MANGA Plus; as fontes de vídeo abrem externamente.
-- Build arm64 e dois pacotes IPA versão 0.1.0 (1) passaram no Xcode 16.4/GitHub Actions.
-- IPA TrollStore fakesigned com ldid, pronto para ser importado pelo TrollStore; SHA-256: `f3aedbd61aefa9fd4b24e3a3081e320e05ea25dbaf3b517c15a17171075a5d96`.
-- O pacote não tem certificado Apple/provisioning profile e ainda não foi instalado no iPhone real. A instalação no TrollStore permanece não verificada.
+- O workflow gerou um IPA de protótipo com 87.311 bytes; isso prova somente que o shell UIKit compila e que o empacotamento TrollStore funciona.
+- **Esse IPA não é a entrega nem um port funcional do Tomato.** Não contém catálogo integrado, temporadas/episódios, player, conta, comentários, mangá ou recursos equivalentes.
+- O APK original mede 99.167.557 bytes e inclui React Native/Hermes, sete DEX, 84 bibliotecas nativas em quatro ABIs, bundle JS e milhares de recursos.
+- O IPA iOS não precisa ter o mesmo tamanho do APK Android, mas precisa conter os módulos e recursos reais do app. O pacote atual não os contém.
+- Auditoria completa e plano corrigido: [docs/auditoria-escopo.md](docs/auditoria-escopo.md).
 - O catálogo e os episódios não estão integrados ao player do ynoanimes. Os serviços da aba fontes abrem externamente.
 - Resolução e bitrate não foram verificados por título; não prometer Full HD antes dos testes.
 
@@ -74,6 +76,10 @@ Nenhuma funcionalidade está marcada como concluída apenas por estar documentad
 4. Não incluir anúncios próprios no aplicativo.
 5. Não armazenar senhas, tokens, cookies ou chaves privadas no repositório.
 6. Usar somente conteúdo, APIs e fontes de mídia que o usuário tenha direito de acessar.
+
+## Importante
+
+O pacote de 87 KB é classificado apenas como **protótipo de interface/prova de compilação**. Não instalar esperando a experiência Tomato. Não apresentar esse arquivo como versão pronta, clone ou engenharia reversa concluída. A reconstrução funcional continua pendente.
 
 ## Importante
 
