@@ -16,9 +16,9 @@
 
 ## O que existe no repositório
 
-- `ynoanimes/App.swift`: shell UIKit com abas início, buscar, biblioteca, fontes e ajustes; busca encaminha para o JustWatch Brasil; diretório de fontes com páginas Mercado Play, playlists oficiais da Crunchyroll Brasil e Anime Sato, Muse BR, Pluto TV e MANGA Plus. Todos os vídeos/serviços abrem externamente.
-- `ynoanimes/LibraryData.swift`: persistência local de favoritos e progresso; integração de metadados removida até haver autorização compatível.
-- `Tests/LibraryStoreSmokeTests.swift`: teste automatizado de favoritos e progresso.
+- `ynoanimes/App.swift`: app UIKit com abas início, buscar, biblioteca, fontes e ajustes; início com atalhos para títulos/fontes, busca externa no JustWatch Brasil e diretório de plataformas oficiais. Os vídeos/serviços abrem externamente.
+- `ynoanimes/LibraryData.swift`: biblioteca local de títulos com status, favoritos legados e modelo de progresso; integração de metadados remota removida até haver autorização compatível.
+- `Tests/LibraryStoreSmokeTests.swift`: testes de favoritos, biblioteca (incluir, evitar duplicado, mudar status, rejeitar status inválido e remover) e progresso.
 - `ynoanimes.xcodeproj`: projeto Xcode para iOS 15+, Bundle ID e versão 0.1.0 (1).
 - `.github/workflows/ios-build.yml`: testes/build em macOS com Xcode; CI de push limitado a alterações de código e workflow manual disponível.
 - `docs/reverse-engineering.md`: inventário estático da amostra Tomato.
@@ -27,20 +27,17 @@
 
 ## Evidência de build mais recente
 
-- GitHub Actions run: 45039575522 — **sucesso**.
-- Link: https://github.com/6zyloov/ynoanimes/actions/runs/45039575522
-- Commit compilado: 7ec0a6ba61ceb03785607845c11818885c8f547c.
-- Teste local de favoritos/progresso, build Xcode Release arm64, instalação de ldid-procursus e empacotamento: aprovados.
-- Artefato GitHub Actions: 14760454946, expira em 06/12/2026.
-- Dois pacotes: ynoanimes-unsigned.ipa e ynoanimes-trollstore.ipa. Ambos passaram no teste de integridade ZIP; Info.plist e binário arm64 conferidos.
-- Bundle ID: com.ynoez.ynoanimes; nome: yno animes; versão/build: 0.1.0 (1); MinimumOSVersion: 15.0; dispositivo iPhone.
-- SHA-256 unsigned: 66c9244295d86123602ec52e8c62e0528e560a5e06282289dc5e2dfe48f8d439.
-- SHA-256 TrollStore (Mach-O fakesigned com ldid): 6c80b2979a008c883926e3b7b923602067275448987c3317640c2ac568ab6461.
+- GitHub Actions run: 45041933608 — **sucesso**.
+- Link: https://github.com/6zyloov/ynoanimes/actions/runs/45041933608
+- Commit compilado: 8039c33c954da3897a80ec8d7d87f065259f9aeb.
+- Teste local da biblioteca, build Xcode Release arm64, instalação de ldid-procursus, empacotamento dos dois IPAs e upload: aprovados.
+- Artefato GitHub Actions: 14761997812, expira em 06/12/2026.
+- Bundle ID: com.ynoez.ynoanimes; nome: yno animes; versão/build: 0.1.0 (1); MinimumOSVersion: 15.0; iPhone; executável Mach-O arm64.
+- IPA unsigned: 84.168 bytes; SHA-256: cea361e4cb775e09a34ed0fbe502496b6648981cc27c29f7f09a206f3aeed6cd.
+- IPA TrollStore (executável Mach-O fakesigned com ldid): 86.928 bytes; SHA-256: 7461c5b2ce0d6c5569ccec89b00a9fb7d75b36341aa56917b561af1422231ecc.
+- Ambos os arquivos foram extraídos do artefato de CI, passaram em unzip -t e tiveram Info.plist/arquitetura validados. O IPA TrollStore contém LC_CODE_SIGNATURE; o IPA unsigned não contém esse load command.
 
-**Limite:** o pacote TrollStore tem LC_CODE_SIGNATURE fake no binário, não certificado Apple nem provisioning profile. É preparado para ser instalado pelo TrollStore, não por instalação normal. Não foi testado em aparelho real.
-
-**Limite:** esse artefato ainda é protótipo. Sem assinatura/provisioning, sem instalação em iPhone real, sem catálogo interno e sem teste de playback ou qualidade por título. Não chamar de IPA final.
-
+**Limite:** o fakesign do ldid não é assinatura Apple nem provisioning profile. O IPA TrollStore foi preparado para importação pelo TrollStore; não houve instalação/abertura em iPhone real nem teste de reprodução.
 ## Fontes encontradas
 
 ### Fontes de vídeo/leitura que podem ser abertas externamente
@@ -105,3 +102,12 @@ Todo recurso deve ser classificado como **implementado e testado**, **parcial**,
 **Evidência atualizada do build:** workflow ios-build run 45039011842 — sucesso em 22/11/2026 para o commit 365c81607a884b22145fea179a2c3de8479ca926. Teste de LibraryStore aprovado; Xcode Release generic iOS/arm64 aprovado; IPA empacotado. Artefato GitHub Actions 14761026014, expira em 06/12/2026. ZIP e IPA passaram em unzip/test; Info.plist confirma Bundle ID com.ynoez.ynoanimes, display name yno animes, versão 0.1.0 (1), MinimumOSVersion 15.0 e iPhone. Binário Mach-O 64-bit arm64. SHA-256 do IPA: b3f6d814da993d1ee81943199284e6521cdedb5df6452f0923dc9ed7ae714f95.
 
 **Limite mantido:** o pacote não contém _CodeSignature nem embedded.mobileprovision; permanece unsigned e não está pronto para instalação normal. Não houve instalação em iPhone real nem teste visual ou de playback.
+
+
+## Revisão de interface e biblioteca local — 22/11/2026
+
+- Início: hero renovado, atalhos de navegação para fontes/busca/biblioteca e cartões para Naruto, Death Note, Hunter x Hunter e Special A.
+- Biblioteca: cadastro manual de título, status “quero assistir”, “assistindo”, “concluído” e “pausado”, alteração de status, proteção contra títulos duplicados e remoção com confirmação. Os dados ficam em UserDefaults no aparelho.
+- Busca: abre o JustWatch Brasil; não usa API de metadados nem scraping.
+- Testes: inclusão, duplicação, atualização, validação de status e remoção da biblioteca local passaram no smoke test; favoritos e progresso também passaram.
+- Ainda pendente: navegação visual em aparelho real, VoiceOver/ajustes de acessibilidade, teste de rolagem/teclado e desempenho no iPhone 6s Plus.
