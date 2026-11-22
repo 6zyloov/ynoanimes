@@ -1,61 +1,60 @@
 # fontes de catálogo e reprodução — avaliação
 
-**Data da verificação documental:** 22/11/2026  
-**Objetivo:** escolher integrações documentadas e autorizadas para o ynoanimes. Não usar scraping de sites de streaming, extração de URLs de players, cookies de terceiros, listas IPTV ou fontes não licenciadas.
+**Última verificação documental:** 22/11/2026  
+**Objetivo:** selecionar integrações que tenham documentação e permissão compatíveis com o ynoanimes. Acesso técnico a uma API não equivale a licença de uso dos dados, imagens ou episódios.
 
 ## Resultado principal
 
-Catálogo de metadados e reprodução de episódios são problemas diferentes. Uma API de catálogo pode fornecer títulos, sinopses e imagens, mas isso não concede direitos para distribuir episódios nem uma URL de mídia que o AVPlayer possa reproduzir.
-
-Ainda não há fonte de episódios autorizada e validada para o player interno. A implementação do player não deve ser ligada a fontes desconhecidas.
+Ainda não foi encontrada uma fonte que autorize, ao mesmo tempo, o catálogo que o app precisa e a reprodução de episódios dentro de um aplicativo de terceiros. Catálogo de metadados e mídia licenciada são dependências distintas.
 
 ## Avaliação de candidatos
 
-| Serviço | O que a documentação oferece | Limite / risco | Estado para o ynoanimes |
+| Serviço | O que está documentado | Restrição identificada | Estado |
 |---|---|---|---|
-| Kitsu | API JSON:API; endpoints de anime/mangá; GET público em muitos recursos; busca e paginação | Termos de serviço/direitos de reutilização dos dados e imagens ainda precisam de confirmação; não oferece acesso geral a episódios licenciados | **parcial** — candidato técnico, não aprovado para integração |
-| AniList | API pública GraphQL para dados de anime e mangá | Termos proíbem uso em serviços concorrentes não complementares de lista/tracker de anime ou mangá sem autorização; ynoanimes prevê favoritos e histórico | **bloqueado** até autorização escrita |
-| Jikan | API REST não oficial baseada em MyAnimeList | Serviço público encerrado em 01/10/2026; o projeto menciona instâncias próprias, não testadas aqui | **bloqueado** como serviço público |
-| TMDB | Metadados de filmes/séries e recursos de provedores por região | Uso gratuito apenas não comercial com atribuição e logotipo/aviso; uso comercial exige licença. Não fornece o arquivo de episódio | **parcial** — licença e adequação pendentes |
-| YouTube IFrame Player | Player oficial incorporável em app; biblioteca auxiliar para iOS | Não permite baixar, guardar ou oferecer offline de conteúdo audiovisual via API; regras limitam agregação de dados de canais diferentes | **parcial** — possível apenas para vídeos oficiais/autorizados, incorporados conforme políticas |
+| Kitsu | API JSON:API de anime/mangá; a documentação descreve buscas, filtros, paginação e GETs públicos | Os Termos oficiais limitam o uso de conteúdo Kitsu fora da plataforma e dizem que o uso da API, quando permitido, fica sujeito a termos separados, disponíveis mediante solicitação | **bloqueado** até obter os termos específicos/autorização por escrito |
+| AniList | API pública GraphQL para metadados | Os termos proíbem uso em serviços concorrentes não complementares, incluindo listas/tracking de anime e mangá; ynoanimes inclui favoritos e histórico | **bloqueado** sem autorização expressa |
+| Jikan | API REST de metadados baseada em MyAnimeList; o software pode ser auto-hospedado | O mantenedor encerrou a instância pública em 01/10/2026; instância própria exige infraestrutura e análise de conformidade com as condições do projeto e do MyAnimeList | **bloqueado** como dependência pública; self-host não aprovado |
+| TMDB | API de dados e imagens de filmes/séries; documentação exige atribuição | Uso gratuito limitado a projetos não comerciais com atribuição e aviso; uso comercial exige licença. Não fornece o arquivo do episódio | **parcial** — licença, cobertura de anime e adequação pendentes |
+| YouTube IFrame Player | Player oficial pode incorporar vídeos do YouTube | Políticas proíbem download/cópia/offline sem autorização escrita e restringem agregação de dados; não é uma fonte genérica de episódios de anime licenciados | **parcial** — apenas vídeos oficiais autorizados, respeitando o player e as políticas |
 
 ## Fontes oficiais consultadas
 
 ### Kitsu
-- Documentação: https://hummingbird-me.github.io/api-docs/
-- API base documentada: https://kitsu.io/api/edge
-- A documentação descreve endpoints GET de anime e suporte a busca por texto, filtragem, inclusão e paginação; muitos GET públicos não exigem autenticação.
-- O link para Termos de Serviço existe, mas seu conteúdo não pôde ser validado nesta rodada. Não tratar a licença Apache 2.0 da documentação como licença automática dos dados, imagens ou conteúdo do catálogo.
+- API: https://hummingbird-me.github.io/api-docs/
+- Termos: https://kitsu.io/terms
+- A API documenta base `https://kitsu.io/api/edge`, JSON:API, filtros/paginação e que a maioria dos GETs públicos não requer autenticação.
+- Os Termos publicados dizem que o conteúdo Kitsu não pode ser copiado/extraído ou usado separadamente da plataforma sem consentimento; a seção de uso aceitável diz que, quando Kitsu permite o uso da API, isso está sujeito a um conjunto separado de termos disponível mediante solicitação. A documentação pública da API não substitui essa autorização.
 
 ### AniList
 - Introdução: https://docs.anilist.co/guide/introduction
-- Termos da API: https://docs.anilist.co/guide/terms-of-use
-- Os termos declaram uso gratuito não comercial e restringem serviços concorrentes não complementares, incluindo listas/tracking de anime e mangá. Como o escopo de ynoanimes contempla favoritos e histórico, não integrar sem autorização expressa.
+- Termos: https://docs.anilist.co/guide/terms-of-use
+- A API é publicamente acessível, mas os termos restringem seu uso em serviços concorrentes não complementares, incluindo trackers de anime/mangá. Como ynoanimes prevê favoritos e histórico, não integrar sem autorização escrita.
 
 ### Jikan
-- Comunicado do mantenedor: https://github.com/jikan-me/jikan-rest/issues/613
-- O serviço público foi descontinuado em 1º de outubro de 2026. Não construir dependência de produção no antigo host público.
+- Aviso oficial do mantenedor: https://github.com/jikan-me/jikan-rest/issues/613
+- O mantenedor anunciou a descontinuação da API pública em 01/10/2026. O código do projeto é auto-hospedável, mas isso não transforma os dados de origem em conteúdo licenciado para redistribuição.
 
 ### TMDB
 - FAQ oficial: https://developer.themoviedb.org/docs/faq
-- A FAQ exige atribuição, logotipo e aviso em uso não comercial; aplicações comerciais devem solicitar licença comercial. A disponibilidade de provedores de streaming não é uma licença para reproduzir o conteúdo.
+- A FAQ diz que o uso gratuito é para fins não comerciais e exige atribuição; aplicações comerciais precisam consultar a licença comercial. Exige exibir o logo e aviso de atribuição.
 
 ### YouTube
 - Políticas oficiais: https://developers.google.com/youtube/terms/developer-policies/
-- Player/API iOS: https://developers.google.com/youtube/apis
-- As políticas proíbem baixar ou armazenar cópias de conteúdo audiovisual sem aprovação escrita, bem como disponibilizar reprodução offline. O ynoanimes não deve extrair URLs de mídia do YouTube.
+- As políticas proíbem baixar, importar, armazenar cópias ou oferecer reprodução offline de conteúdo audiovisual sem aprovação prévia por escrito. Não extrair links diretos ou contornar o player.
 
-## Decisão de implementação
+## Decisão técnica
 
-1. Manter `CatalogProvider` como interface substituível; não fixar Kitsu, AniList ou TMDB no modelo de domínio.
-2. Não importar ou armazenar em massa catálogos/imagens até confirmar os termos e direitos de cada provedor.
-3. A biblioteca pessoal (favoritos, histórico e continuar assistindo) deve ser armazenada localmente pelo próprio ynoanimes, independentemente do fornecedor de metadados.
-4. Para mídia, aceitar somente:
-   - um fornecedor licenciado que documente API/SDK de reprodução para terceiros; ou
-   - URLs HLS/DASH diretas fornecidas pelo próprio detentor dos direitos e autorizadas para uso no aplicativo; ou
-   - abrir a página/app oficial do serviço, sem tentar contornar seu player.
-5. Nunca reutilizar sessão, endpoint privado, cookie, token, chave de assinatura ou URL interna extraída do Tomato.
+1. Manter `CatalogProvider` como interface substituível. Não fixar nenhum fornecedor até confirmar os termos.
+2. Favoritos e histórico serão armazenados localmente pelo próprio ynoanimes e não dependerão de conta de terceiros.
+3. O player pode ser desenvolvido e testado com arquivos HLS de teste próprios/licenciados, sem conectá-lo a episódios não autorizados.
+4. Para reprodução real, aceitar somente um SDK/provedor que autorize explicitamente reprodução dentro de aplicativos de terceiros, ou URLs fornecidas pelo titular dos direitos.
+5. Não reutilizar autenticação privada, cookies, tokens, chaves, assinaturas, endpoints internos ou controles de acesso do Tomato.
+6. Não usar scraping, playlists de terceiros, links de player extraídos, ou APIs privadas não documentadas.
 
-## Dependência que precisará de decisão do responsável
+## Dependência externa indispensável
 
-Antes de habilitar reprodução dentro do app, é necessário identificar um catálogo de episódios cujo titular autorize expressamente a reprodução por terceiros. Sem isso, o player poderá ser implementado e testado com mídia de teste própria, mas não poderá ser considerado funcional para o catálogo real.
+Para habilitar catálogo real e episódios, o responsável precisa indicar ou obter autorização de um fornecedor/titular que permita:
+- uso dos metadados/imagens em aplicativo independente; e
+- reprodução de episódios dentro do aplicativo, por SDK ou URLs autorizadas.
+
+Sem essa autorização, é possível entregar um app de organização e descoberta com fontes autorizadas, mas não um streaming funcional com catálogo/episódios de terceiros.
