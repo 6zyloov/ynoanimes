@@ -27,14 +27,17 @@
 
 ## Evidência de build mais recente
 
-- GitHub Actions run: 45039011842 — **sucesso**.
-- Link: https://github.com/6zyloov/ynoanimes/actions/runs/45039011842
-- Commit do código compilado: 365c81607a884b22145fea179a2c3de8479ca926.
-- Xcode Release para generic iOS device/arm64; smoke test local aprovado.
-- Artefato IPA unsigned: 14761026014, expira em 06/12/2026.
-- ZIP e IPA passaram no teste de integridade; Info.plist e binário arm64 conferidos.
+- GitHub Actions run: 45039575522 — **sucesso**.
+- Link: https://github.com/6zyloov/ynoanimes/actions/runs/45039575522
+- Commit compilado: 7ec0a6ba61ceb03785607845c11818885c8f547c.
+- Teste local de favoritos/progresso, build Xcode Release arm64, instalação de ldid-procursus e empacotamento: aprovados.
+- Artefato GitHub Actions: 14760454946, expira em 06/12/2026.
+- Dois pacotes: ynoanimes-unsigned.ipa e ynoanimes-trollstore.ipa. Ambos passaram no teste de integridade ZIP; Info.plist e binário arm64 conferidos.
 - Bundle ID: com.ynoez.ynoanimes; nome: yno animes; versão/build: 0.1.0 (1); MinimumOSVersion: 15.0; dispositivo iPhone.
-- SHA-256 do IPA unsigned: b3f6d814da993d1ee81943199284e6521cdedb5df6452f0923dc9ed7ae714f95.
+- SHA-256 unsigned: 66c9244295d86123602ec52e8c62e0528e560a5e06282289dc5e2dfe48f8d439.
+- SHA-256 TrollStore (Mach-O fakesigned com ldid): 6c80b2979a008c883926e3b7b923602067275448987c3317640c2ac568ab6461.
+
+**Limite:** o pacote TrollStore tem LC_CODE_SIGNATURE fake no binário, não certificado Apple nem provisioning profile. É preparado para ser instalado pelo TrollStore, não por instalação normal. Não foi testado em aparelho real.
 
 **Limite:** esse artefato ainda é protótipo. Sem assinatura/provisioning, sem instalação em iPhone real, sem catálogo interno e sem teste de playback ou qualidade por título. Não chamar de IPA final.
 
