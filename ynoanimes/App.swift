@@ -267,22 +267,58 @@ final class SettingsScreen: UIViewController {
     }
 }
 
+/// An alternate full-episode rendition for providers that publish separate
+/// dubbed editions instead of multiple audio tracks in one media asset.
+struct PlaybackLanguageEdition {
+    let languageCode: String
+    let label: String
+    let url: URL
+
+    init?(languageCode: String, label: String, url: URL) {
+        let code = languageCode.trimmingCharacters(in: .whitespacesAndNewlines)
+        let name = label.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard url.scheme?.lowercased() == "https",
+              !code.isEmpty,
+              !name.isEmpty else { return nil }
+        self.languageCode = code
+        self.label = name
+        self.url = url
+    }
+}
+
 /// Must be created only by an integration that has verified the right to provide this media.
 struct PlayableMedia {
     let url: URL
     let title: String
     let episodeTitle: String
+    let originalLanguageCode: String
+    let alternateEditions: [PlaybackLanguageEdition]
 
-    init?(url: URL, title: String, episodeTitle: String) {
-        guard url.scheme?.lowercased() == "https" else { return nil }
+    init?(url: URL,
+          title: String,
+          episodeTitle: String,
+          originalLanguageCode: String = "ja",
+          alternateEditions: [PlaybackLanguageEdition] = []) {
+        guard url.scheme?.lowercased() == "https",
+              alternateEditions.allSatisfy({ $0.url.scheme?.lowercased() == "https" }) else { return nil }
         self.url = url
         self.title = title
         self.episodeTitle = episodeTitle
+        self.originalLanguageCode = originalLanguageCode
+        self.alternateEditions = alternateEditions
     }
 }
 
+/// Provides an in-player language menu for both embedded audio tracks and
+/// separately published dubbed editions. A provider must supply real,
+/// synchronized editions; this UI never fabricates language tracks.
 final class PlaybackScreen: AVPlayerViewController {
+    private let media: PlayableMedia
+    private var activeEditionLanguage: String
+
     init(media: PlayableMedia) {
+        self.media = media
+        self.activeEditionLanguage = media.originalLanguageCode
         super.init(nibName: nil, bundle: nil)
         player = AVPlayer(url: media.url)
         title = media.title
@@ -291,6 +327,69 @@ final class PlaybackScreen: AVPlayerViewController {
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) não é suportado") }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "áudio",
+            style: .plain,
+            target: self,
+            action: #selector(showAudioOptions)
+        )
+    }
+
+    @objc private func showAudioOptions() {
+        guard let item = player?.currentItem else { return }
+        let alert = UIAlertController(title: "idioma do áudio", message: nil, preferredStyle: .actionSheet)
+
+        if let group = item.asset.mediaSelectionGroup(forMediaCharacteristic: .audible) {
+            for option in group.options {
+                let label = option.displayName
+                let language = option.extendedLanguageTag ?? ""
+                let title = language.isEmpty ? label : "\(label) · \(language)"
+                let action = UIAlertAction(title: title, style: .default) { [weak item] _ in
+                    item?.select(option, in: group)
+                }
+                if item.currentMediaSelection.selectedMediaOption(in: group)?.isEqual(option) == true {
+                    action.setValue(true, forKey: "checked")
+                }
+                alert.addAction(action)
+            }
+        }
+
+        for edition in media.alternateEditions {
+            let action = UIAlertAction(title: edition.label, style: .default) { [weak self] _ in
+                self?.switchEdition(edition)
+            }
+            if activeEditionLanguage == edition.languageCode {
+                action.setValue(true, forKey: "checked")
+            }
+            alert.addAction(action)
+        }
+
+        if alert.actions.isEmpty {
+            alert.message = "Esta fonte não publicou outras faixas ou versões de áudio para este episódio."
+        }
+        alert.addAction(UIAlertAction(title: "cancelar", style: .cancel))
+        if let popover = alert.popoverPresentationController {
+            popover.barButtonItem = navigationItem.rightBarButtonItem
+        }
+        present(alert, animated: true)
+    }
+
+    private func switchEdition(_ edition: PlaybackLanguageEdition) {
+        guard let player else { return }
+        let wasPlaying = player.timeControlStatus == .playing
+        let currentTime = player.currentTime()
+        let safeTime = currentTime.isValid && currentTime.isNumeric ? currentTime : .zero
+        let replacement = AVPlayerItem(url: edition.url)
+        activeEditionLanguage = edition.languageCode
+        player.replaceCurrentItem(with: replacement)
+        player.seek(to: safeTime, toleranceBefore: .zero, toleranceAfter: .zero) { [weak player] finished in
+            guard finished, wasPlaying else { return }
+            player?.play()
+        }
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
