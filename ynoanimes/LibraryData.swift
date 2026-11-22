@@ -20,7 +20,7 @@ enum CatalogError: Error, Equatable {
 }
 
 protocol CatalogProvider {
-    func searchAnime(query: String, completion: @escaping (Result<[Anime], CatalogError>) -> Void)
+    func searchAnime(query: String, page: Int, completion: @escaping (Result<[Anime], CatalogError>) -> Void)
 }
 
 /// Free public metadata catalog. This provider returns anime information only;
@@ -28,7 +28,7 @@ protocol CatalogProvider {
 final class AniListCatalogProvider: CatalogProvider {
     private let endpoint = URL(string: "https://graphql.anilist.co")!
 
-    func searchAnime(query: String, completion: @escaping (Result<[Anime], CatalogError>) -> Void) {
+    func searchAnime(query: String, page: Int = 1, completion: @escaping (Result<[Anime], CatalogError>) -> Void) {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
             completion(.success([]))
@@ -56,7 +56,7 @@ final class AniListCatalogProvider: CatalogProvider {
 
         let body: [String: Any] = [
             "query": graphQL,
-            "variables": ["search": trimmed, "page": 1, "perPage": 20]
+            "variables": ["search": trimmed, "page": max(1, page), "perPage": 20]
         ]
 
         do {
