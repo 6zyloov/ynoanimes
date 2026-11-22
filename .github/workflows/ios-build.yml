@@ -3,6 +3,10 @@ name: ios-build
 on:
   push:
     branches: [main]
+    paths:
+      - 'ynoanimes/**'
+      - 'Tests/**'
+      - 'ynoanimes.xcodeproj/**'
   workflow_dispatch:
 
 permissions:
