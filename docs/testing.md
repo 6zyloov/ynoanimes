@@ -65,14 +65,15 @@ Build bem-sucedido não prova instalação, estabilidade nem reprodução real. 
 
 ## Build e validação mais recentes — 22/11/2026
 
-- Workflow ios-build run 45041933608: **success**.
-- Link: https://github.com/6zyloov/ynoanimes/actions/runs/45041933608
-- Commit compilado: 8039c33c954da3897a80ec8d7d87f065259f9aeb.
-- Teste da biblioteca local, build Xcode Release arm64, instalação de ldid-procursus, empacotamento e upload dos dois IPAs: aprovados.
-- Artefato: 14761997812; expira em 06/12/2026.
-- Bundle ID: com.ynoez.ynoanimes; display name: yno animes; version/build: 0.1.0 (1); iOS mínimo 15.0; UIDeviceFamily iPhone.
-- IPA unsigned: 84.168 bytes; SHA-256: cea361e4cb775e09a34ed0fbe502496b6648981cc27c29f7f09a206f3aeed6cd.
-- IPA TrollStore: 86.928 bytes; SHA-256: 7461c5b2ce0d6c5569ccec89b00a9fb7d75b36341aa56917b561af1422231ecc.
-- Integridade: unzip -t sem erros nos dois IPAs. Info.plist e Mach-O arm64 conferidos. A variante TrollStore contém LC_CODE_SIGNATURE (fakesign ldid); a unsigned não contém esse load command.
+- Workflow ios-build run 45042287537: **success**.
+- Link: https://github.com/6zyloov/ynoanimes/actions/runs/45042287537
+- Commit: 4786b48459eca840d8571ab1f2b9382347d6c702.
+- Smoke test de biblioteca local e favoritos/progresso, build Xcode Release arm64, instalação de ldid-procursus, empacotamento e upload: aprovados.
+- Artefato: 14762043178; expira em 06/12/2026.
+- Bundle ID: com.ynoez.ynoanimes; display name: yno animes; versão/build: 0.1.0 (1); iOS mínimo 15.0; família iPhone.
+- IPA unsigned: 84.557 bytes; SHA-256: 2905995e1068c7760f4491d3e68c18d4ee19ce4ad68ef2b96b90e9ed23c202c5.
+- IPA TrollStore: 87.311 bytes; SHA-256: f3aedbd61aefa9fd4b24e3a3081e320e05ea25dbaf3b517c15a17171075a5d96.
+- ZIPs: integridade aprovada. Info.plist e executável Mach-O arm64 conferidos. A variante TrollStore contém LC_CODE_SIGNATURE fake do ldid; a unsigned não contém.
+- Verificação estática do binário confirmou os atalhos da tela inicial (Anime Sato, Crunchyroll e Pluto TV) e textos da biblioteca local.
 
-**Classificação:** build, testes de dados e integridade dos pacotes **implementado e testado**. Instalação e abertura no iPhone 6s Plus/iOS 15.8.8 **não verificadas**. O fakesign não é certificado Apple e não instala pelo fluxo normal do iOS; importar a variante específica pelo TrollStore.
+**Classificação:** código compilado, smoke tests e integridade dos IPAs **implementado e testado**; instalação/abertura no iPhone 6s Plus/iOS 15.8.8 **não verificadas**. A variante TrollStore deve ser importada no TrollStore; o fakesign não é assinatura Apple e não instala pelo fluxo normal do iOS.
