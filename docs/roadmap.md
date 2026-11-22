@@ -23,11 +23,12 @@ Atualizado em 22/11/2026. Marque como concluído somente depois de implementar e
 
 ## fase 2 — experiência visual e navegação
 
-- [x] Criar shell inicial escuro com tabs início, buscar, biblioteca e ajustes.
+- [x] Criar shell inicial escuro com abas início/buscar/biblioteca/fontes/ajustes.
+- [x] Adicionar diretório de links externos para fontes oficiais e leitura de mangá.
 - [ ] Refinar interface baseada nas evidências do app de referência, sem copiar ativos proprietários.
 - [ ] Implementar catálogo paginado, pesquisa real, categorias e detalhes.
 - [ ] Implementar tela de anime, temporadas e episódios.
-- [ ] Implementar leitor de mangá, se houver fonte autorizada.
+- [ ] Implementar leitor de mangá interno, se houver fonte autorizada.
 - [ ] Validar layout no tamanho de tela do iPhone 6s Plus.
 
 ## fase 3 — recursos locais e reprodução
@@ -43,12 +44,16 @@ Atualizado em 22/11/2026. Marque como concluído somente depois de implementar e
 ## fase 4 — validação e distribuição
 
 - [x] Build arm64 para iOS por GitHub Actions/Xcode.
-- [x] Criar artefato IPA unsigned e validar a estrutura ZIP.
-- [ ] Configurar assinatura/instalação com método compatível e autorizado.
+- [x] Criar artefato IPA unsigned de protótipo e validar a estrutura ZIP.
+- [ ] Configurar assinatura/instalação conforme método compatível com o iPhone-alvo.
 - [ ] Instalar em dispositivo-alvo e testar todos os fluxos.
 - [ ] Medir inicialização, memória, fluidez e bateria.
 - [ ] Publicar build testado com changelog e SHA-256.
 
 ## bloqueador externo
 
-A reprodução real de episódios depende de autorização do titular/provedor. O inventário de rotas do APK não concede autorização para acessar ou reutilizar o backend Tomato. Consulte `docs/providers.md`.
+A reprodução real de episódios depende de autorização do titular/provedor. Os candidatos e seus formulários oficiais estão em `docs/providers.md`. A análise de rotas no APK não concede autorização para acessar/reutilizar o backend Tomato.
+
+## regra de conclusão
+
+Cada item precisa de implementação verificável e teste registrado em `docs/testing.md`. Planejamento, link externo ou documentação, isoladamente, não significa que o catálogo/player está funcionando.
