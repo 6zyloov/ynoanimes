@@ -86,3 +86,17 @@ Esses links estão no diretório da aba “fontes”. Eles **não** conferem dir
 ## Regra de classificação
 
 Todo recurso deve ser classificado como **implementado e testado**, **parcial**, **planejado**, **não verificado** ou **bloqueado**. Build, link, tela ou documentação isolados não provam funcionamento real.
+
+
+## Estado de continuidade — 22/11/2026 (atualização)
+
+- A busca interna que consultava AniList foi removida. A classificação de conformidade já indicava bloqueio sem autorização para um app independente; não manter chamada API ativa sem permissão escrita.
+- A aba buscar agora abre a busca pública do JustWatch Brasil com o termo informado. A rota foi verificada externamente com a consulta Naruto; isso não equivale a uma integração de API nem a teste dentro do iPhone.
+- A aba fontes agora inclui atalhos diretos para a playlist oficial da Crunchyroll Brasil (227 vídeos listados na consulta, episódios selecionados; temporadas completas podem exigir assinatura) e para a playlist Anime Sato em português (12 episódios identificados).
+- Foram adicionadas páginas Mercado Play para Special A, Inazuma Eleven — Os Estrangeiros Estão Aqui e Beyblade Burst — Na Escuridão! Dark Doomscizor!. O índice oficial as listou como grátis; a leitura automatizada das páginas falhou, então disponibilidade atual e idioma continuam parciais/não verificados.
+- Muse BR permanece como canal oficial, mas não foi localizada nesta rodada uma playlist de episódios completos em português; não anunciar como catálogo gratuito confirmado.
+- O provedor AniList e os modelos de busca associados foram removidos de LibraryData.swift; PlaybackProgress e LibraryStore foram preservados. O teste de favoritos/progresso passou no CI para o commit 367570e4a7cebc31f46a87beca5fe1b1a1801906.
+- Alterações posteriores adicionaram links adicionais de fontes em App.swift; o workflow ios-build do commit 365c81607a884b22145fea179a2c3de8479ca926 está em execução na hora desta atualização.
+- A rota JustWatch testada foi https://www.justwatch.com/br/busca?q=Naruto; a página retornou resultados de busca e opções de disponibilidade no Brasil.
+
+**Pendente:** aguardar o workflow do commit 365c81607a884b22145fea179a2c3de8479ca926; depois conferir o IPA gerado e manter a classificação como unsigned/não instalável até assinatura e teste físico. Não reutilizar artefato antigo como se fosse o build mais recente.
