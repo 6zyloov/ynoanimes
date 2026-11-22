@@ -56,7 +56,7 @@ enum YTheme {
         return v
     }
 
-    static func card() -> UIView {
+    static func makeCard() -> UIView {
         let v = UIView()
         v.backgroundColor = card
         v.layer.cornerRadius = 18
@@ -105,7 +105,7 @@ final class HomeScreen: UIViewController {
         brand.spacing = 4
         stack.addArrangedSubview(brand)
 
-        let hero = YTheme.card()
+        let hero = YTheme.makeCard()
         let heroStack = UIStackView(arrangedSubviews: [
             YTheme.label("sua próxima história", 11, .bold, YTheme.muted),
             YTheme.label("tudo começa\npor aqui.", 32, .bold),
@@ -125,7 +125,7 @@ final class HomeScreen: UIViewController {
         stack.addArrangedSubview(hero)
 
         stack.addArrangedSubview(YTheme.label("continue explorando", 18, .semibold))
-        let info = YTheme.card()
+        let info = YTheme.makeCard()
         let infoStack = UIStackView(arrangedSubviews: [
             YTheme.label("◇", 24, .medium, YTheme.muted),
             YTheme.label("um catálogo, sem atalhos duvidosos.", 15, .semibold),
