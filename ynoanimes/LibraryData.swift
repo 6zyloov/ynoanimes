@@ -1,5 +1,13 @@
 import Foundation
 
+struct PlaybackProgress: Codable, Equatable {
+    let animeID: String
+    let episodeID: String
+    let positionSeconds: Double
+    let durationSeconds: Double?
+    let updatedAt: Date
+}
+
 // The metadata catalog integration remains disabled until a provider's
 // terms explicitly authorize use in an independent commercial anime app.
 
