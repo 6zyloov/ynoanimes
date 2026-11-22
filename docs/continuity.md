@@ -27,17 +27,18 @@
 
 ## Evidência de build mais recente
 
-- GitHub Actions run: 45041933608 — **sucesso**.
-- Link: https://github.com/6zyloov/ynoanimes/actions/runs/45041933608
-- Commit compilado: 8039c33c954da3897a80ec8d7d87f065259f9aeb.
+- GitHub Actions run: 45042287537 — **sucesso**.
+- Link: https://github.com/6zyloov/ynoanimes/actions/runs/45042287537
+- Commit compilado: 4786b48459eca840d8571ab1f2b9382347d6c702.
 - Teste local da biblioteca, build Xcode Release arm64, instalação de ldid-procursus, empacotamento dos dois IPAs e upload: aprovados.
-- Artefato GitHub Actions: 14761997812, expira em 06/12/2026.
-- Bundle ID: com.ynoez.ynoanimes; nome: yno animes; versão/build: 0.1.0 (1); MinimumOSVersion: 15.0; iPhone; executável Mach-O arm64.
-- IPA unsigned: 84.168 bytes; SHA-256: cea361e4cb775e09a34ed0fbe502496b6648981cc27c29f7f09a206f3aeed6cd.
-- IPA TrollStore (executável Mach-O fakesigned com ldid): 86.928 bytes; SHA-256: 7461c5b2ce0d6c5569ccec89b00a9fb7d75b36341aa56917b561af1422231ecc.
-- Ambos os arquivos foram extraídos do artefato de CI, passaram em unzip -t e tiveram Info.plist/arquitetura validados. O IPA TrollStore contém LC_CODE_SIGNATURE; o IPA unsigned não contém esse load command.
+- Artefato GitHub Actions: 14762043178, expira em 06/12/2026.
+- Bundle ID: com.ynoez.ynoanimes; nome: yno animes; versão/build: 0.1.0 (1); MinimumOSVersion: 15.0; família iPhone; executável Mach-O arm64.
+- IPA unsigned: 84.557 bytes; SHA-256: 2905995e1068c7760f4491d3e68c18d4ee19ce4ad68ef2b96b90e9ed23c202c5.
+- IPA TrollStore: 87.311 bytes; SHA-256: f3aedbd61aefa9fd4b24e3a3081e320e05ea25dbaf3b517c15a17171075a5d96.
+- Ambos passaram em unzip -t; Info.plist/arquitetura conferidos. A variante TrollStore contém LC_CODE_SIGNATURE criado por ldid; a variante unsigned não contém esse load command.
+- O binário final contém os textos de atalho Anime Sato, Crunchyroll, Pluto TV e os controles da biblioteca local.
 
-**Limite:** o fakesign do ldid não é assinatura Apple nem provisioning profile. O IPA TrollStore foi preparado para importação pelo TrollStore; não houve instalação/abertura em iPhone real nem teste de reprodução.
+**Limite:** fakesign do ldid não é certificado Apple nem provisioning profile. O IPA TrollStore é preparado para importação pelo TrollStore; instalação e abertura em iPhone real ainda não foram verificadas.
 ## Fontes encontradas
 
 ### Fontes de vídeo/leitura que podem ser abertas externamente
