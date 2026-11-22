@@ -12,9 +12,11 @@ Projeto independente para reconstruir no iOS a experiência do aplicativo Androi
 - [x] Repositório criado e documentação inicial preparada
 - [x] Receber e identificar estruturalmente o APK de referência (análise estática; execução não verificada)
 - [x] Definir uma base iOS com deployment target 15.0 e build arm64 em CI (ainda sem teste no aparelho)
-- [ ] Implementar interface e navegação
+- [x] Criar shell inicial UIKit com navegação inferior e diretório de fontes oficiais
+- [ ] Refinar interface e concluir todos os fluxos de navegação
 - [ ] Implementar catálogo, busca, categorias e detalhes
-- [ ] Implementar favoritos e histórico
+- [x] Implementar a camada de dados local de favoritos e progresso (testada em CI)
+- [ ] Integrar favoritos e histórico às telas
 - [ ] Implementar player, legendas e controles
 - [ ] Validar login e integrações permitidas
 - [ ] Compilar, instalar e testar o IPA no dispositivo-alvo
