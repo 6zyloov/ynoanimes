@@ -26,7 +26,8 @@ Atualizado em 22/11/2026.
 
 - [ ] Definir provedor de metadados com autorização expressa para uso em app independente/comercial; até lá, manter busca externa pelo JustWatch e não consultar AniList/Kitsu sem permissão.
 - [ ] Implementar pesquisa, categorias, detalhes e links de “assistir oficialmente”.
-- [ ] Persistir favoritos e histórico com UI conectada.
+- [x] Implementar biblioteca local com cadastro manual, status, deduplicação e remoção de títulos.
+- [ ] Conectar favoritos e progresso automático à futura integração de catálogo/player autorizado.
 - [ ] Implementar catálogo separado por fonte, idioma e tipo (on-demand/linear).
 - [ ] Indicar de forma clara quando o título é grátis, exige assinatura ou tem disponibilidade regional.
 
