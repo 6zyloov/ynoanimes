@@ -1,49 +1,54 @@
 # roadmap — yno animes
 
-Este documento acompanha o trabalho real. Marque uma tarefa como concluída somente depois de implementar e validar.
+Atualizado em 22/11/2026. Marque como concluído somente depois de implementar e validar.
 
-## fase 0 — preparação
+## fase 0 — preparação e referência
 
-- [x] Criar repositório público.
-- [x] Registrar objetivo, dispositivo-alvo e escopo.
-- [ ] Reunir novamente os materiais de referência necessários no ambiente de desenvolvimento.
-- [ ] Inventariar telas, menus, estados vazios, erros e fluxos do app Android.
-- [ ] Registrar requisitos funcionais e visuais com evidências.
+- [x] Criar repositório e documentar o objetivo.
+- [x] Receber e inventariar a amostra APK por análise estática.
+- [ ] Capturar e catalogar telas/fluxos do Tomato com referência visual legítima.
+- [ ] Documentar estados de erro, vazio, loading, perfil e reprodução com evidências.
 
-## fase 1 — análise e arquitetura
+## fase 1 — arquitetura e base iOS
 
-- [ ] Confirmar tecnologia e arquitetura adequadas ao iOS 15.8.8.
-- [ ] Mapear navegação, modelos de dados e estados de tela.
-- [ ] Identificar dependências compatíveis com arm64 e o sistema-alvo.
-- [ ] Definir estratégia de armazenamento local e tratamento de erros.
-- [ ] Documentar integrações externas autorizadas e seus limites.
+- [x] Criar projeto Xcode UIKit com deployment target iOS 15.0.
+- [x] Configurar build CI para dispositivo genérico arm64.
+- [x] Implementar persistência local básica de favoritos e progresso.
+- [x] Executar smoke test automatizado de persistência em macOS CI.
+- [x] Compilar a base no Xcode CI e empacotar IPA sem assinatura.
+- [ ] Testar instalação e abertura em iPhone 6s Plus/iOS 15.8.8.
+- [ ] Completar modelos, repositórios e tratamento de erros.
+- [ ] Definir fornecedor autorizado de metadados/imagens.
+- [ ] Definir fornecedor/titular autorizado de episódios e reprodução.
 
-## fase 2 — experiência visual
+## fase 2 — experiência visual e navegação
 
-- [ ] Criar sistema visual escuro com identidade yno.
-- [ ] Implementar navegação inferior e componentes reutilizáveis.
-- [ ] Implementar início, catálogo, categorias e pesquisa.
-- [ ] Implementar detalhes, temporadas e episódios.
-- [ ] Revisar espaçamentos, tipografia, animações e estados de carregamento.
+- [x] Criar shell inicial escuro com tabs início, buscar, biblioteca e ajustes.
+- [ ] Refinar interface baseada nas evidências do app de referência, sem copiar ativos proprietários.
+- [ ] Implementar catálogo paginado, pesquisa real, categorias e detalhes.
+- [ ] Implementar tela de anime, temporadas e episódios.
+- [ ] Implementar leitor de mangá, se houver fonte autorizada.
+- [ ] Validar layout no tamanho de tela do iPhone 6s Plus.
 
-## fase 3 — recursos
+## fase 3 — recursos locais e reprodução
 
-- [ ] Favoritos persistentes.
-- [ ] Histórico e continuar assistindo.
-- [ ] Player com controles e legendas.
-- [ ] Login apenas por fluxo oficial/autorizado, se disponível.
-- [ ] Tratamento de falhas de rede e indisponibilidade de conteúdo.
+- [x] Persistir favoritos localmente (camada de dados).
+- [x] Persistir e atualizar progresso local (camada de dados).
+- [ ] Conectar controles visuais de favoritos e progresso à interface.
+- [ ] Integrar AVPlayer com mídia HLS de teste própria/autorizada.
+- [ ] Integrar seleção de faixas/legendas suportadas pela fonte autorizada.
+- [ ] Validar continuar assistindo e próximo episódio.
+- [ ] Conectar login apenas se houver fluxo oficial autorizado e necessário.
 
-## fase 4 — build e validação
+## fase 4 — validação e distribuição
 
-- [ ] Configurar projeto de build para IPA.
-- [ ] Compilar para o dispositivo-alvo.
-- [ ] Instalar no iPhone 6s Plus com Dopamine.
-- [ ] Testar cada fluxo no aparelho real.
-- [ ] Medir inicialização, memória, fluidez e consumo de bateria.
-- [ ] Corrigir falhas e registrar evidências.
-- [ ] Publicar uma versão de teste identificada.
+- [x] Build arm64 para iOS por GitHub Actions/Xcode.
+- [x] Criar artefato IPA unsigned e validar a estrutura ZIP.
+- [ ] Configurar assinatura/instalação com método compatível e autorizado.
+- [ ] Instalar em dispositivo-alvo e testar todos os fluxos.
+- [ ] Medir inicialização, memória, fluidez e bateria.
+- [ ] Publicar build testado com changelog e SHA-256.
 
-## critério de conclusão
+## bloqueador externo
 
-Cada item precisa de implementação verificável e teste registrado em `docs/testing.md`. Planejamento ou documentação, isoladamente, não significa que o recurso existe.
+A reprodução real de episódios depende de autorização do titular/provedor. O inventário de rotas do APK não concede autorização para acessar ou reutilizar o backend Tomato. Consulte `docs/providers.md`.
