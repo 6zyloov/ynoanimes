@@ -88,7 +88,10 @@ final class HomeScreen: UIViewController {
         ("naruto", "mercado play · grátis listado", URL(string: "https://play.mercadolivre.com.br/assistir/naruto/be679bf2952a48619325b2fd063e0641")!),
         ("death note", "mercado play · grátis listado", URL(string: "https://play.mercadolivre.com.br/assistir/death-note/232ef0bc387347cb9113b8bd82f044cd")!),
         ("hunter x hunter", "mercado play · grátis listado", URL(string: "https://play.mercadolivre.com.br/assistir/hunter-x-hunter/1b83745cab2343efb5ad243c4ecb8a31")!),
-        ("special a", "mercado play · grátis listado", URL(string: "https://play.mercadolivre.com.br/assistir/special-a/768c34414ded497e9e23cedbf5887597")!)
+        ("special a", "mercado play · grátis listado", URL(string: "https://play.mercadolivre.com.br/assistir/special-a/768c34414ded497e9e23cedbf5887597")!),
+        ("anime sato · série em português", "playlist oficial · 12 episódios", URL(string: "https://www.youtube.com/playlist?list=PLe0jn-R7nFs4")!),
+        ("crunchyroll · episódios selecionados", "playlist oficial · temporadas completas podem ser pagas", URL(string: "https://www.youtube.com/playlist?list=PLvdPoYtCK3rNsMQ4zL-OpuWd0cwKZqbSN")!),
+        ("pluto tv · anime", "canais ao vivo · grátis com anúncios", URL(string: "https://pluto.tv/br/watch/live-tv/category/anime-geek-br/")!)
     ]
 
     override func viewDidLoad() {
