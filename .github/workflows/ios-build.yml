@@ -7,6 +7,7 @@ on:
       - 'ynoanimes/**'
       - 'Tests/**'
       - 'ynoanimes.xcodeproj/**'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 permissions:
@@ -25,7 +26,9 @@ jobs:
           /tmp/yno-library-tests
 
       - name: show xcode version
-        run: xcodebuild -version
+        run: |
+          uname -m
+          xcodebuild -version
 
       - name: build for generic iOS device
         run: |
@@ -41,16 +44,24 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             build | tee build/xcodebuild.log
 
-      - name: package unsigned IPA
+      - name: install ldid-procursus
+        run: brew install ldid-procursus
+
+      - name: package unsigned and TrollStore IPAs
         run: |
           set -euo pipefail
           APP_PATH="build/DerivedData/Build/Products/Release-iphoneos/ynoanimes.app"
           test -d "$APP_PATH"
-          mkdir -p build/Payload
-          cp -R "$APP_PATH" build/Payload/ynoanimes.app
-          (cd build && /usr/bin/zip -qry ynoanimes-unsigned.ipa Payload)
-          shasum -a 256 build/ynoanimes-unsigned.ipa | tee build/ynoanimes-unsigned.ipa.sha256
-          unzip -l build/ynoanimes-unsigned.ipa | head -40
+          mkdir -p build/Unsigned/Payload build/TrollStore/Payload
+          cp -R "$APP_PATH" build/Unsigned/Payload/ynoanimes.app
+          cp -R "$APP_PATH" build/TrollStore/Payload/ynoanimes.app
+          # Fake-sign only for TrollStore; this is not an Apple certificate signature.
+          ldid -S build/TrollStore/Payload/ynoanimes.app/ynoanimes
+          (cd build/Unsigned && /usr/bin/zip -qry ../ynoanimes-unsigned.ipa Payload)
+          (cd build/TrollStore && /usr/bin/zip -qry ../ynoanimes-trollstore.ipa Payload)
+          unzip -t build/ynoanimes-unsigned.ipa
+          unzip -t build/ynoanimes-trollstore.ipa
+          shasum -a 256 build/ynoanimes-unsigned.ipa build/ynoanimes-trollstore.ipa | tee build/ipa-sha256.txt
 
       - name: upload build artifacts
         uses: actions/upload-artifact@v4
