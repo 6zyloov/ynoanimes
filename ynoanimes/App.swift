@@ -84,77 +84,171 @@ final class YTabs: UITabBarController {
 }
 
 final class HomeScreen: UIViewController {
+    private let shortcuts: [(String, String, URL)] = [
+        ("naruto", "mercado play · grátis listado", URL(string: "https://play.mercadolivre.com.br/assistir/naruto/be679bf2952a48619325b2fd063e0641")!),
+        ("death note", "mercado play · grátis listado", URL(string: "https://play.mercadolivre.com.br/assistir/death-note/232ef0bc387347cb9113b8bd82f044cd")!),
+        ("hunter x hunter", "mercado play · grátis listado", URL(string: "https://play.mercadolivre.com.br/assistir/hunter-x-hunter/1b83745cab2343efb5ad243c4ecb8a31")!),
+        ("special a", "mercado play · grátis listado", URL(string: "https://play.mercadolivre.com.br/assistir/special-a/768c34414ded497e9e23cedbf5887597")!)
+    ]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = YTheme.bg
         navigationItem.largeTitleDisplayMode = .never
 
         let scroll = UIScrollView()
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.spacing = 22
-        stack.translatesAutoresizingMaskIntoConstraints = false
         scroll.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scroll)
+
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 20
+        stack.translatesAutoresizingMaskIntoConstraints = false
         scroll.addSubview(stack)
 
         let brand = UIStackView(arrangedSubviews: [
-            YTheme.label("yno animes", 30, .bold),
-            YTheme.label("anime e mangá, do seu jeito.", 14, .regular, YTheme.muted)
+            YTheme.label("yno animes", 31, .bold),
+            YTheme.label("descubra. acompanhe. guarde.", 13, .medium, YTheme.muted)
         ])
         brand.axis = .vertical
         brand.spacing = 4
         stack.addArrangedSubview(brand)
 
         let hero = YTheme.makeCard()
-        let heroStack = UIStackView(arrangedSubviews: [
-            YTheme.label("sua próxima história", 11, .bold, YTheme.muted),
-            YTheme.label("tudo começa\npor aqui.", 32, .bold),
-            YTheme.label("Um espaço para descobrir, acompanhar e guardar seus animes e mangás.", 14, .regular, YTheme.muted),
-            YTheme.label("catálogo não conectado", 12, .semibold, YTheme.muted)
-        ])
-        heroStack.axis = .vertical
-        heroStack.spacing = 14
-        heroStack.translatesAutoresizingMaskIntoConstraints = false
-        hero.addSubview(heroStack)
+        hero.layer.borderWidth = 1
+        hero.layer.borderColor = YTheme.line.cgColor
+        let heroContent = UIStackView()
+        heroContent.axis = .vertical
+        heroContent.spacing = 13
+        heroContent.translatesAutoresizingMaskIntoConstraints = false
+        hero.addSubview(heroContent)
+
+        let eyebrow = YTheme.label("SEU UNIVERSO DE ANIME", 10, .bold, YTheme.muted)
+        let headline = YTheme.label("sua próxima\nhistória começa aqui.", 29, .bold)
+        let description = YTheme.label(
+            "Encontre fontes oficiais, descubra onde assistir e monte sua própria biblioteca.",
+            14, .regular, YTheme.muted
+        )
+        heroContent.addArrangedSubview(eyebrow)
+        heroContent.addArrangedSubview(headline)
+        heroContent.addArrangedSubview(description)
+
+        let actions = UIStackView()
+        actions.axis = .vertical
+        actions.spacing = 9
+        let sourcesButton = makeHomeButton(title: "explorar fontes oficiais", primary: true)
+        sourcesButton.addTarget(self, action: #selector(openSources), for: .touchUpInside)
+        let searchButton = makeHomeButton(title: "buscar onde assistir", primary: false)
+        searchButton.addTarget(self, action: #selector(openSearch), for: .touchUpInside)
+        actions.addArrangedSubview(sourcesButton)
+        actions.addArrangedSubview(searchButton)
+        heroContent.addArrangedSubview(actions)
+
         NSLayoutConstraint.activate([
-            heroStack.topAnchor.constraint(equalTo: hero.topAnchor, constant: 22),
-            heroStack.leadingAnchor.constraint(equalTo: hero.leadingAnchor, constant: 20),
-            heroStack.trailingAnchor.constraint(equalTo: hero.trailingAnchor, constant: -20),
-            heroStack.bottomAnchor.constraint(equalTo: hero.bottomAnchor, constant: -22)
+            heroContent.topAnchor.constraint(equalTo: hero.topAnchor, constant: 21),
+            heroContent.leadingAnchor.constraint(equalTo: hero.leadingAnchor, constant: 19),
+            heroContent.trailingAnchor.constraint(equalTo: hero.trailingAnchor, constant: -19),
+            heroContent.bottomAnchor.constraint(equalTo: hero.bottomAnchor, constant: -21)
         ])
         stack.addArrangedSubview(hero)
 
-        stack.addArrangedSubview(YTheme.label("continue explorando", 18, .semibold))
-        let info = YTheme.makeCard()
-        let infoStack = UIStackView(arrangedSubviews: [
-            YTheme.label("◇", 24, .medium, YTheme.muted),
-            YTheme.label("um catálogo, sem atalhos duvidosos.", 15, .semibold),
-            YTheme.label("A ligação com uma fonte autorizada ainda está pendente. Nenhum título fictício será apresentado como catálogo real.", 13, .regular, YTheme.muted)
+        stack.addArrangedSubview(sectionHeading("comece por aqui", subtitle: "Títulos com páginas oficiais identificadas como gratuitas. Confirme a disponibilidade ao abrir."))
+
+        for item in shortcuts {
+            stack.addArrangedSubview(makeShortcutCard(title: item.0, detail: item.1, url: item.2))
+        }
+
+        let library = YTheme.makeCard()
+        let libraryContent = UIStackView(arrangedSubviews: [
+            YTheme.label("sua biblioteca", 17, .semibold),
+            YTheme.label("Guarde títulos, organize o que está assistindo e mantenha sua lista neste aparelho.", 13, .regular, YTheme.muted)
         ])
-        infoStack.axis = .vertical
-        infoStack.spacing = 10
-        infoStack.translatesAutoresizingMaskIntoConstraints = false
-        info.addSubview(infoStack)
+        libraryContent.axis = .vertical
+        libraryContent.spacing = 7
+        let libraryButton = makeHomeButton(title: "abrir minha biblioteca", primary: false)
+        libraryButton.addTarget(self, action: #selector(openLibrary), for: .touchUpInside)
+        let libraryStack = UIStackView(arrangedSubviews: [libraryContent, libraryButton])
+        libraryStack.axis = .vertical
+        libraryStack.spacing = 13
+        libraryStack.translatesAutoresizingMaskIntoConstraints = false
+        library.addSubview(libraryStack)
         NSLayoutConstraint.activate([
-            infoStack.topAnchor.constraint(equalTo: info.topAnchor, constant: 18),
-            infoStack.leadingAnchor.constraint(equalTo: info.leadingAnchor, constant: 18),
-            infoStack.trailingAnchor.constraint(equalTo: info.trailingAnchor, constant: -18),
-            infoStack.bottomAnchor.constraint(equalTo: info.bottomAnchor, constant: -18)
+            libraryStack.topAnchor.constraint(equalTo: library.topAnchor, constant: 17),
+            libraryStack.leadingAnchor.constraint(equalTo: library.leadingAnchor, constant: 17),
+            libraryStack.trailingAnchor.constraint(equalTo: library.trailingAnchor, constant: -17),
+            libraryStack.bottomAnchor.constraint(equalTo: library.bottomAnchor, constant: -17)
         ])
-        stack.addArrangedSubview(info)
+        stack.addArrangedSubview(library)
+
+        stack.addArrangedSubview(YTheme.label(
+            "A reprodução acontece no serviço oficial. O ynoanimes não hospeda nem copia episódios.",
+            11, .regular, YTheme.muted
+        ))
 
         NSLayoutConstraint.activate([
             scroll.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scroll.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scroll.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scroll.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            stack.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor, constant: 24),
-            stack.leadingAnchor.constraint(equalTo: scroll.frameLayoutGuide.leadingAnchor, constant: 20),
-            stack.trailingAnchor.constraint(equalTo: scroll.frameLayoutGuide.trailingAnchor, constant: -20),
-            stack.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor, constant: -24)
+            stack.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor, constant: 23),
+            stack.leadingAnchor.constraint(equalTo: scroll.frameLayoutGuide.leadingAnchor, constant: 19),
+            stack.trailingAnchor.constraint(equalTo: scroll.frameLayoutGuide.trailingAnchor, constant: -19),
+            stack.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor, constant: -26)
         ])
     }
+
+    private func sectionHeading(_ title: String, subtitle: String) -> UIView {
+        let group = UIStackView(arrangedSubviews: [
+            YTheme.label(title, 19, .bold),
+            YTheme.label(subtitle, 12, .regular, YTheme.muted)
+        ])
+        group.axis = .vertical
+        group.spacing = 5
+        return group
+    }
+
+    private func makeHomeButton(title: String, primary: Bool) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(primary ? .black : .white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        button.backgroundColor = primary ? .white : YTheme.raised
+        button.layer.cornerRadius = 12
+        button.contentEdgeInsets = UIEdgeInsets(top: 13, left: 15, bottom: 13, right: 15)
+        button.contentHorizontalAlignment = .center
+        button.heightAnchor.constraint(greaterThanOrEqualToConstant: 46).isActive = true
+        return button
+    }
+
+    private func makeShortcutCard(title: String, detail: String, url: URL) -> UIView {
+        let card = YTheme.makeCard()
+        let labels = UIStackView(arrangedSubviews: [
+            YTheme.label(title, 16, .semibold),
+            YTheme.label(detail, 11, .medium, YTheme.muted)
+        ])
+        labels.axis = .vertical
+        labels.spacing = 5
+        let button = ExternalProviderButton(title: "abrir ↗", destination: url)
+        let row = UIStackView(arrangedSubviews: [labels, button])
+        row.axis = .horizontal
+        row.alignment = .center
+        row.spacing = 12
+        labels.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        button.setContentHuggingPriority(.required, for: .horizontal)
+        row.translatesAutoresizingMaskIntoConstraints = false
+        card.addSubview(row)
+        NSLayoutConstraint.activate([
+            row.topAnchor.constraint(equalTo: card.topAnchor, constant: 14),
+            row.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 15),
+            row.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -15),
+            row.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -14)
+        ])
+        return card
+    }
+
+    @objc private func openSources() { tabBarController?.selectedIndex = 3 }
+    @objc private func openSearch() { tabBarController?.selectedIndex = 1 }
+    @objc private func openLibrary() { tabBarController?.selectedIndex = 2 }
 }
 
 final class SearchScreen: UIViewController, UITextFieldDelegate {
@@ -230,35 +324,207 @@ final class SearchScreen: UIViewController, UITextFieldDelegate {
 }
 
 final class LibraryScreen: UIViewController {
+    private let entriesStack = UIStackView()
+    private let summaryLabel = YTheme.label("", 13, .regular, YTheme.muted)
+    private let emptyLabel = YTheme.label(
+        "Sua lista ainda está vazia. Adicione um anime para começar a organizar seu universo.",
+        14, .regular, YTheme.muted
+    )
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "biblioteca"
         view.backgroundColor = YTheme.bg
         navigationItem.largeTitleDisplayMode = .always
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addTitle)
+        )
+
+        let scroll = UIScrollView()
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scroll)
+
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 17
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        scroll.addSubview(stack)
+
+        let intro = UIStackView(arrangedSubviews: [
+            YTheme.label("sua coleção", 23, .bold),
+            YTheme.label("Uma lista pessoal salva somente neste iPhone.", 13, .regular, YTheme.muted)
+        ])
+        intro.axis = .vertical
+        intro.spacing = 5
+        stack.addArrangedSubview(intro)
+
+        let summaryCard = YTheme.makeCard()
+        summaryLabel.numberOfLines = 0
+        summaryLabel.text = "0 títulos na sua lista"
+        summaryLabel.translatesAutoresizingMaskIntoConstraints = false
+        summaryCard.addSubview(summaryLabel)
+        NSLayoutConstraint.activate([
+            summaryLabel.topAnchor.constraint(equalTo: summaryCard.topAnchor, constant: 16),
+            summaryLabel.leadingAnchor.constraint(equalTo: summaryCard.leadingAnchor, constant: 16),
+            summaryLabel.trailingAnchor.constraint(equalTo: summaryCard.trailingAnchor, constant: -16),
+            summaryLabel.bottomAnchor.constraint(equalTo: summaryCard.bottomAnchor, constant: -16)
+        ])
+        stack.addArrangedSubview(summaryCard)
+
+        let heading = YTheme.label("minha lista", 18, .bold)
+        stack.addArrangedSubview(heading)
+        entriesStack.axis = .vertical
+        entriesStack.spacing = 11
+        stack.addArrangedSubview(entriesStack)
+
+        stack.addArrangedSubview(YTheme.label(
+            "O histórico de episódios e o progresso automático serão ativados quando houver uma fonte de reprodução autorizada conectada.",
+            11, .regular, YTheme.muted
+        ))
+
+        NSLayoutConstraint.activate([
+            scroll.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scroll.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scroll.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scroll.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stack.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor, constant: 22),
+            stack.leadingAnchor.constraint(equalTo: scroll.frameLayoutGuide.leadingAnchor, constant: 18),
+            stack.trailingAnchor.constraint(equalTo: scroll.frameLayoutGuide.trailingAnchor, constant: -18),
+            stack.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor, constant: -26)
+        ])
+        refreshLibrary()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.subviews.forEach { $0.removeFromSuperview() }
-        let favorites = LibraryStore.shared.favoriteIDs().count
-        let progress = LibraryStore.shared.allProgress().count
-        let symbol = UIImageView(image: UIImage(systemName: "bookmark"))
-        symbol.tintColor = YTheme.muted
-        symbol.translatesAutoresizingMaskIntoConstraints = false
-        let summary = YTheme.label("Seus dados ficam neste aparelho.\n\n\(favorites) favorito(s)\n\(progress) episódio(s) com progresso", 14, .regular, YTheme.muted)
-        summary.textAlignment = .center
-        summary.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(symbol)
-        view.addSubview(summary)
+        refreshLibrary()
+    }
+
+    private func refreshLibrary() {
+        let items = LibraryStore.shared.libraryEntries()
+        let watching = items.filter { $0.status == "assistindo" }.count
+        let planned = items.filter { $0.status == "quero assistir" }.count
+        let completed = items.filter { $0.status == "concluído" }.count
+        summaryLabel.text = "(items.count) título(s)\n\(watching) assistindo  ·  (planned) na lista  ·  (completed) concluído(s)"
+
+        entriesStack.arrangedSubviews.forEach {
+            entriesStack.removeArrangedSubview($0)
+            $0.removeFromSuperview()
+        }
+
+        if items.isEmpty {
+            let emptyCard = YTheme.makeCard()
+            emptyLabel.translatesAutoresizingMaskIntoConstraints = false
+            emptyCard.addSubview(emptyLabel)
+            NSLayoutConstraint.activate([
+                emptyLabel.topAnchor.constraint(equalTo: emptyCard.topAnchor, constant: 18),
+                emptyLabel.leadingAnchor.constraint(equalTo: emptyCard.leadingAnchor, constant: 16),
+                emptyLabel.trailingAnchor.constraint(equalTo: emptyCard.trailingAnchor, constant: -16),
+                emptyLabel.bottomAnchor.constraint(equalTo: emptyCard.bottomAnchor, constant: -18)
+            ])
+            entriesStack.addArrangedSubview(emptyCard)
+            return
+        }
+
+        items.forEach { entriesStack.addArrangedSubview(makeEntryCard($0)) }
+    }
+
+    private func makeEntryCard(_ entry: LibraryEntry) -> UIView {
+        let card = YTheme.makeCard()
+        let title = YTheme.label(entry.title, 16, .semibold)
+        let status = YTheme.label(entry.status.uppercased(), 10, .bold, YTheme.muted)
+        let labels = UIStackView(arrangedSubviews: [title, status])
+        labels.axis = .vertical
+        labels.spacing = 6
+
+        let updateButton = UIButton(type: .system)
+        updateButton.setTitle("alterar status", for: .normal)
+        updateButton.setTitleColor(.white, for: .normal)
+        updateButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .semibold)
+        updateButton.backgroundColor = YTheme.raised
+        updateButton.layer.cornerRadius = 9
+        updateButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 11, bottom: 9, right: 11)
+        updateButton.accessibilityIdentifier = entry.id
+        updateButton.addTarget(self, action: #selector(changeStatus(_:)), for: .touchUpInside)
+
+        let removeButton = UIButton(type: .system)
+        removeButton.setTitle("remover", for: .normal)
+        removeButton.setTitleColor(YTheme.muted, for: .normal)
+        removeButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
+        removeButton.accessibilityIdentifier = entry.id
+        removeButton.addTarget(self, action: #selector(removeEntry(_:)), for: .touchUpInside)
+
+        let actions = UIStackView(arrangedSubviews: [updateButton, removeButton])
+        actions.axis = .horizontal
+        actions.spacing = 8
+        actions.alignment = .center
+
+        let content = UIStackView(arrangedSubviews: [labels, actions])
+        content.axis = .vertical
+        content.spacing = 12
+        content.translatesAutoresizingMaskIntoConstraints = false
+        card.addSubview(content)
         NSLayoutConstraint.activate([
-            symbol.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            symbol.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -55),
-            symbol.widthAnchor.constraint(equalToConstant: 34),
-            symbol.heightAnchor.constraint(equalToConstant: 34),
-            summary.topAnchor.constraint(equalTo: symbol.bottomAnchor, constant: 22),
-            summary.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
-            summary.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -28)
+            content.topAnchor.constraint(equalTo: card.topAnchor, constant: 15),
+            content.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 15),
+            content.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -15),
+            content.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -15)
         ])
+        return card
+    }
+
+    @objc private func addTitle() {
+        let alert = UIAlertController(title: "adicionar à biblioteca", message: "Salve um título na sua lista pessoal.", preferredStyle: .alert)
+        alert.addTextField { field in
+            field.placeholder = "nome do anime"
+            field.autocapitalizationType = .words
+            field.returnKeyType = .done
+        }
+        alert.addAction(UIAlertAction(title: "cancelar", style: .cancel))
+        alert.addAction(UIAlertAction(title: "adicionar", style: .default) { [weak self, weak alert] _ in
+            guard let self, let title = alert?.textFields?.first?.text,
+                  !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+            if !LibraryStore.shared.addLibraryEntry(title: title) {
+                self.showMessage(title: "título já cadastrado", message: "Esse anime já está na sua biblioteca.")
+            }
+            self.refreshLibrary()
+        })
+        present(alert, animated: true)
+    }
+
+    @objc private func changeStatus(_ sender: UIButton) {
+        guard let id = sender.accessibilityIdentifier else { return }
+        let alert = UIAlertController(title: "status do anime", message: nil, preferredStyle: .actionSheet)
+        for status in LibraryStatus.all {
+            alert.addAction(UIAlertAction(title: status, style: .default) { [weak self] _ in
+                _ = LibraryStore.shared.updateLibraryEntry(id: id, status: status)
+                self?.refreshLibrary()
+            })
+        }
+        alert.addAction(UIAlertAction(title: "cancelar", style: .cancel))
+        if let popover = alert.popoverPresentationController {
+            popover.barButtonItem = navigationItem.rightBarButtonItem
+        }
+        present(alert, animated: true)
+    }
+
+    @objc private func removeEntry(_ sender: UIButton) {
+        guard let id = sender.accessibilityIdentifier else { return }
+        let alert = UIAlertController(title: "remover da biblioteca?", message: "O título será retirado da sua lista neste aparelho.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "cancelar", style: .cancel))
+        alert.addAction(UIAlertAction(title: "remover", style: .destructive) { [weak self] _ in
+            _ = LibraryStore.shared.removeLibraryEntry(id: id)
+            self?.refreshLibrary()
+        })
+        present(alert, animated: true)
+    }
+
+    private func showMessage(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "entendi", style: .default))
+        present(alert, animated: true)
     }
 }
 
