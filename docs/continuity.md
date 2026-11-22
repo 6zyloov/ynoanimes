@@ -53,11 +53,12 @@ Esses links estão no diretório da aba “fontes”. Eles **não** conferem dir
 
 ### Prioridade para licenciamento OTT
 
-1. Sato Company — Brasil, anime/tokusatsu, agregação e distribuição OTT SVOD/TVOD/AVOD. Contato público: https://sato.tv.br/fale-conosco/ ; telefone publicado: +55 11 4134-4455.
-2. Artworks Entertainment — catálogo de animação/anime e operação de distribuição linear e não linear; contato: https://www.artworks-ent.com/pt/contact-us.
-3. MUSE Communication — formulário Film & Television aceita consultas “OTT Platform” e “Internet”; confirmar território Brasil/América Latina: https://www.e-muse.com/en/media-contact/.
-4. Bandai Namco Filmworks — formulário de negócios internacionais: https://support.bnfw.co.jp/support/contact/global.
-5. Kodansha Licensing — formulário específico para vídeo/animação, condicionado à disponibilidade por título e território: https://rights-form.kodansha.co.jp/VideoGoodsForms?language=en.
+1. **AniBiz — prioridade máxima para investigação.** Marketplace B2B oficial de anime IP que reúne licensors e permite startups/app developers criarem perfil e apresentarem propostas diretamente a titulares. Mais de 30 licensors e investimento anunciado por TBS Group, Toei Animation e TV TOKYO em 27/10/2026. Perfil Basic gratuito; Pro anunciado a US$ 49/mês (não contratar sem aprovação). Site: https://anibiz.com/ ; portal licensees: https://anibiz.com/lp/licensee ; contacto público: cs@anibiz.com. **Não está confirmado que oferece direitos audiovisuais de streaming para apps externos** — perguntar antes sobre SVOD/TVOD/AVOD, território Brasil, HLS/SDK, DRM e legendas.
+2. Sato Company — Brasil, anime/tokusatsu, agregação e distribuição OTT SVOD/TVOD/AVOD. Contato público: https://sato.tv.br/fale-conosco/ ; telefone publicado: +55 11 4134-4455.
+3. Artworks Entertainment — catálogo de animação/anime e operação de distribuição linear e não linear; contato: https://www.artworks-ent.com/pt/contact-us.
+4. MUSE Communication — formulário Film & Television aceita consultas “OTT Platform” e “Internet”; confirmar território Brasil/América Latina: https://www.e-muse.com/en/media-contact/.
+5. Bandai Namco Filmworks — formulário de negócios internacionais: https://support.bnfw.co.jp/support/contact/global.
+6. Kodansha Licensing — formulário específico para vídeo/animação, condicionado à disponibilidade por título e território: https://rights-form.kodansha.co.jp/VideoGoodsForms?language=en.
 
 **Nenhum contato comercial foi enviado e nenhuma licença foi concedida.** Consultas devem pedir direitos de SVOD/TVOD/AVOD para app independente no Brasil, entrega HLS/SDK, legendas/faixas de áudio, DRM, janelas, território, limites de usuários e modelo comercial. Mais detalhes e fontes em `docs/providers.md`.
 
@@ -73,12 +74,13 @@ Esses links estão no diretório da aba “fontes”. Eles **não** conferem dir
 ## Próximas ações
 
 1. Manter a base UIKit e corrigir problemas visuais/funcionais sem recomeçar do zero.
-2. Preparar consultas comerciais para Sato Company e Artworks, e em paralelo MUSE se os direitos cobrirem Brasil.
-3. Continuar a integração local de favoritos e histórico às telas.
-4. Desenvolver AVPlayer com mídia de teste própria/licenciada e validar legendas suportadas.
-5. Só conectar catálogo, imagens e episódios depois da confirmação escrita dos direitos.
-6. Configurar assinatura/instalação compatível com Dopamine e testar no iPhone 6s Plus/iOS 15.8.8.
-7. Entregar apenas quando a instalação e os fluxos reais estiverem verificados.
+2. Consultar AniBiz gratuitamente primeiro para confirmar se consegue negociar direitos audiovisuais de streaming; não contratar Pro/VIP sem aprovação.
+3. Preparar consultas comerciais para Sato Company e Artworks, e em paralelo MUSE se os direitos cobrirem Brasil.
+4. Continuar a integração local de favoritos e histórico às telas.
+5. Desenvolver AVPlayer com mídia de teste própria/licenciada e validar legendas suportadas.
+6. Só conectar catálogo, imagens e episódios depois da confirmação escrita dos direitos.
+7. Configurar assinatura/instalação compatível com Dopamine e testar no iPhone 6s Plus/iOS 15.8.8.
+8. Entregar apenas quando a instalação e os fluxos reais estiverem verificados.
 
 ## Regra de classificação
 
