@@ -474,6 +474,24 @@ final class ProviderDirectoryScreen: UIViewController {
             url: URL(string: "https://play.mercadolivre.com.br/assistir/hunter-x-hunter/1b83745cab2343efb5ad243c4ecb8a31")!
         ),
         OfficialProvider(
+            name: "special a",
+            category: "mercado play · página oficial grátis",
+            detail: "Página oficial de Special A identificada como grátis no Mercado Play Brasil. Confirme temporadas, idioma e episódios disponíveis ao abrir.",
+            url: URL(string: "https://play.mercadolivre.com.br/assistir/special-a/768c34414ded497e9e23cedbf5887597")!
+        ),
+        OfficialProvider(
+            name: "inazuma eleven · episódio",
+            category: "mercado play · episódio listado como grátis",
+            detail: "Atalho para Os Estrangeiros Estão Aqui. A página indexada informa acesso grátis; confirme se o episódio e a temporada continuam liberados.",
+            url: URL(string: "https://play.mercadolivre.com.br/assistir/inazuma-eleven-os-estrangeiros-estao-aqui-1-27/47d5584ffb974e74ac69ff45cdcdf0d0")!
+        ),
+        OfficialProvider(
+            name: "beyblade burst · episódio",
+            category: "mercado play · episódio listado como grátis",
+            detail: "Atalho para Na Escuridão! Dark Doomscizor!. A página indexada informa acesso grátis; confirme disponibilidade e idioma no serviço.",
+            url: URL(string: "https://play.mercadolivre.com.br/assistir/beyblade-burst-na-escuridao-dark-doomscizor-1-5/61cd0c7842fe4a86bf69e1137cf2c4b2")!
+        ),
+        OfficialProvider(
             name: "anime sato",
             category: "youtube · canal oficial gratuito",
             detail: "Canal da distribuidora Sato Company. A grade é atualizada; resolução e idioma devem ser conferidos em cada vídeo.",
