@@ -1,5 +1,85 @@
 # fontes de catálogo, streaming e licenciamento — ynoanimes
 
+## 0. opções gratuitas e oficiais para orçamento zero — Brasil
+
+**Pesquisa:** 22/11/2026. Esta seção responde ao requisito de não gastar com acesso ao catálogo. O ynoanimes deve funcionar como descoberta/atalho oficial; não deve copiar nem retransmitir vídeos.
+
+### 1) Mercado Play — melhor opção sob demanda para começar
+
+- Portal: https://play.mercadolivre.com.br/
+- O próprio serviço publica páginas brasileiras de títulos com a indicação “Grátis no Mercado Play”.
+- Atalhos oficiais encontrados:
+  - Naruto: https://play.mercadolivre.com.br/assistir/naruto/be679bf2952a48619325b2fd063e0641
+  - Death Note: https://play.mercadolivre.com.br/assistir/death-note/232ef0bc387347cb9113b8bd82f044cd
+  - Hunter x Hunter: https://play.mercadolivre.com.br/assistir/hunter-x-hunter/1b83745cab2343efb5ad243c4ecb8a31
+  - Special A: https://play.mercadolivre.com.br/assistir/special-a/768c34414ded497e9e23cedbf5887597
+  - Beyblade Burst: https://play.mercadolivre.com.br/assistir/beyblade-burst/f66469a89ab949dbbb94c7b5e8eca0e0
+- Uma publicação editorial de 04/05/2026 registrou títulos adicionais no catálogo, incluindo Tougen Anki, Ouran High School Host Club, Usagi Drop, Pandora Hearts, Mononoke, Chihayafuru, Naruto, Death Note, Hunter x Hunter e outros. Essa lista é um retrato publicado naquela data, não uma garantia de disponibilidade hoje.
+- **Qualidade:** o serviço não publica nesta pesquisa uma garantia técnica por título de resolução, bitrate ou codec. Não prometer 1080p sem verificar cada stream.
+- **Integração:** somente link externo, salvo autorização/SDK oficial. O fato de a página estar grátis para o consumidor não autoriza o ynoanimes a capturar mídia ou redistribuir o player.
+- **Estado:** **parcial** — páginas e links oficiais identificados; disponibilidade exata de temporadas, qualidade máxima e playback no iPhone não testados.
+
+### 2) Anime Sato — canal oficial e gratuito da Sato Company
+
+- Canal: https://www.youtube.com/@AnimeSatoOficial
+- A Sato Company anunciou em 24/04/2026 uma programação gratuita no YouTube para a América Latina, com atualizações semanais.
+- Títulos anunciados no lançamento incluíram Street Fighter II: Victory, Devil May Cry, Highschool of the Dead, Ghost Hound, Vampire Hunter: Darkstalkers, além de longas animados e live-actions.
+- O próprio canal descreve conteúdo dublado/legendado em português e espanhol. A página atual do canal expõe pelo menos uma playlist de episódios em português.
+- **Qualidade:** a resolução é definida por vídeo e pelas opções do player YouTube; esta pesquisa não confirmou 1080p em cada episódio. Exigir teste por episódio antes de rotular “Full HD”.
+- **Integração:** link externo ou YouTube IFrame Player oficial, sem baixar mídia, retirar anúncios, alterar controles, permitir background/offline ou usar URLs internas. A API do YouTube exige preservar a experiência e os anúncios do player.
+- **Estado:** **parcial** — canal oficial gratuito e playlist identificados; catálogo completo, disponibilidade de todos os episódios e resolução por vídeo não validados.
+
+### 3) Muse BR — canal oficial de distribuidora
+
+- Canal: https://www.youtube.com/@musebrtv
+- O canal se identifica como oficial. Guias de anime publicados em 2026 o apontam como canal licenciado com séries disponibilizadas gratuitamente em português.
+- **Qualidade:** depende do arquivo publicado e do YouTube; sem verificação individual, não garantir 1080p.
+- **Integração:** preservar o player oficial, ou abrir o canal/vídeo externamente.
+- **Estado:** **parcial** — canal oficial confirmado; títulos e disponibilidade regional precisam ser verificados vídeo a vídeo.
+
+### 4) Pluto TV Brasil — canais lineares gratuitos
+
+- Categoria oficial: https://pluto.tv/br/watch/live-tv/category/anime-geek-br/
+- A Pluto TV descreve o serviço como streaming gratuito e legal, com canais ao vivo, anúncios e catálogo rotativo.
+- A categoria brasileira de Anime/Geek é a porta de entrada correta; não há garantia de que um título específico esteja sempre na grade.
+- Listas de canais de terceiros e rastreadores de catálogo apontam títulos como Naruto, Death Note, Hunter x Hunter, One Piece, Beyblade e InuYasha, mas a grade muda por data e território. Usar esses nomes apenas como pistas de descoberta, não como disponibilidade garantida.
+- **Qualidade:** não há especificação pública por anime confirmada nesta rodada. Não prometer 1080p.
+- **Integração:** abrir o site/app oficial; não extrair manifestos HLS, cookies ou URLs do player.
+- **Estado:** **parcial** — serviço e categoria oficial gratuita confirmados; a grade e os episódios atuais precisam de conferência no próprio Pluto TV.
+
+### 5) Crunchyroll Brasil no YouTube — apenas vídeos selecionados
+
+- Canal: https://www.youtube.com/@CrunchyrollBR
+- O canal publica trailers, clipes e episódios completos selecionados; não representa o catálogo completo.
+- **Importante:** o plano gratuito sob demanda da Crunchyroll no Brasil terminou em 31/12/2025. A plataforma principal deve ser tratada como paga em 2026; não anunciar assinatura gratuita.
+- **Estado:** **parcial** — canal oficial gratuito com vídeos selecionados; serviço principal não atende ao requisito de custo zero.
+
+### 6) JustWatch Brasil — descoberta, não playback
+
+- https://www.justwatch.com/br
+- Ajuda a procurar onde determinado título está legalmente disponível. Não hospeda nem transmite episódios.
+- **Estado:** **parcial** — link externo incluído; API de parceiro depende de acordo.
+
+### Regra de qualidade do ynoanimes
+
+O objetivo “qualidade extrema” não deve ser confundido com apenas um rótulo 1080p. Antes de marcar uma fonte ou episódio como Full HD, validar no player oficial:
+1. resolução real disponível (preferência 1920×1080 ou superior);
+2. bitrate estável e ausência de upscale artificial;
+3. proporção correta, sem crop ou barras inseridas;
+4. áudio sem clipping e com sincronização;
+5. legendas PT-BR completas e sincronizadas;
+6. estabilidade de reprodução em rede móvel/Wi-Fi e no iPhone 6s Plus.
+
+**Não verificado atualmente:** nenhuma das plataformas foi testada no iPhone 6s Plus por esta pesquisa. O App deve rotular a qualidade como “não verificada” até a conferência real.
+
+### Limite de zero orçamento
+
+- É possível oferecer gratuitamente uma área de descoberta e atalhos para fontes oficiais, mas isso não é o mesmo que ter o próprio player com um acervo licenciado.
+- Para reproduzir os episódios dentro do ynoanimes, o titular precisa autorizar o app e fornecer um mecanismo de reprodução (SDK/iframe permitido ou URLs/manifestos de mídia). Uma página pública ou um vídeo marcado como grátis para o usuário final não concede esse direito ao aplicativo.
+- Não usar sites como Dattebayo, agregadores não autorizados, embeds de players piratas, scrapers ou streams retirados do código de outro app. Qualidade aparente não substitui licença e estabilidade.
+- A estratégia realista sem custo é começar com Anime Sato, Muse BR, Mercado Play e Pluto TV como fontes externas, adicionar funcionalidades próprias de descoberta, favoritos e histórico local, e só depois negociar integração interna caso haja programa oficial gratuito ou autorização por escrito.
+- Não comprar API, plano AniBiz Pro/VIP nem licença sem decisão expressa do responsável.
+
 ## 0. Melhor porta de entrada B2B encontrada — AniBiz
 
 <badge>Prioridade máxima para investigar</badge>
