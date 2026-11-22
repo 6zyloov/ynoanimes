@@ -72,3 +72,16 @@ Build bem-sucedido não prova instalação, estabilidade nem reprodução real. 
 - Binário: Mach-O 64-bit arm64.
 - SHA-256: b3f6d814da993d1ee81943199284e6521cdedb5df6452f0923dc9ed7ae714f95.
 - **Não pronto para instalação normal:** IPA sem _CodeSignature e sem embedded.mobileprovision. Nenhum teste em aparelho real ou reprodução de vídeo foi realizado.
+
+
+## Pacotes TrollStore — 22/11/2026
+
+- Workflow 45039575522: sucesso; commit 7ec0a6ba61ceb03785607845c11818885c8f547c.
+- A pipeline instala ldid-procursus e gera duas variantes: IPA unsigned puro e IPA com o executável Mach-O fakesigned para TrollStore.
+- Os dois ZIPs internos passaram em unzip -t; ambos têm Info.plist correto, bundle ID com.ynoez.ynoanimes, iOS mínimo 15.0 e binário Mach-O arm64.
+- A variante TrollStore tem LC_CODE_SIGNATURE e blob de assinatura fake (ldid); a unsigned não tem LC_CODE_SIGNATURE.
+- SHA-256 unsigned: 66c9244295d86123602ec52e8c62e0528e560a5e06282289dc5e2dfe48f8d439.
+- SHA-256 TrollStore: 6c80b2979a008c883926e3b7b923602067275448987c3317640c2ac568ab6461.
+- Artefato GitHub Actions 14760454946; expiração 06/12/2026.
+
+**Classificação:** build e integridade dos pacotes **implementado e testado**; compatibilidade por Info.plist/Mach-O **verificada**; instalação no TrollStore e execução em iPhone 6s Plus/iOS 15.8.8 **não verificadas**. A assinatura fake não é assinatura Apple e não instala pelo fluxo normal do iOS.
