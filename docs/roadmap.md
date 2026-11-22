@@ -6,7 +6,9 @@ Atualizado em 22/11/2026.
 
 - [x] Receber e inventariar APK por análise estática.
 - [x] Criar projeto iOS UIKit com deployment target 15.0.
-- [x] Criar shell escuro com abas.
+- [x] Criar shell escuro com abas (**protótipo**, não port funcional).
+- [x] Medir APK original: 99.167.557 bytes, 5.316 entradas, 7 DEX, React Native/Hermes, 4 ABIs Android.
+- [x] Registrar auditoria de escopo e comparação: docs/auditoria-escopo.md.
 - [x] Criar diretório de links oficiais externos.
 - [ ] Capturar e catalogar fluxos visuais do Tomato com referência legítima.
 
@@ -33,7 +35,7 @@ Atualizado em 22/11/2026.
 
 ## fase 3 — player e leitor
 
-- [x] Criar base AVPlayer, ainda sem fonte de mídia real.
+- [ ] Implementar player iOS real com AVPlayer; ainda não existe fluxo de mídia no app.
 - [ ] Desenvolver player com mídia própria/licenciada de teste.
 - [ ] Verificar opção de player oficial incorporável (YouTube) sem tirar anúncios, controles, legendas ou recursos do serviço.
 - [ ] Não extrair links de streaming de páginas, players ou apps de terceiros.
@@ -46,8 +48,18 @@ Atualizado em 22/11/2026.
 - [ ] Validar bitrate, proporção, áudio, sincronização de legendas e buffering.
 - [ ] Testar Wi-Fi/4G e retomada de reprodução.
 - [ ] Testar UI e desempenho no iPhone 6s Plus/iOS 15.8.8.
-- [x] Gerar no CI IPA unsigned e variante Mach-O fakesigned para TrollStore via ldid.
+- [x] Gerar IPA mínimo de protótipo para validar o pipeline CI (87 KB; **não é entrega funcional**).
 - [ ] Instalar pelo TrollStore e validar abertura no iPhone 6s Plus/iOS 15.8.8.
+
+## escopo de port funcional (pendente)
+
+- [ ] Especificar e implementar telas de início, catálogo, busca, categorias, detalhes, temporadas e episódios.
+- [ ] Implementar modelos, cache de imagens, estados de carregamento/erro/vazio e camada de dados.
+- [ ] Implementar player com fonte de teste autorizada e controles equivalentes: play/pause, seek, velocidade, faixas/legendas, retomada e PiP.
+- [ ] Implementar perfil/sessão própria; não reutilizar autenticação privada do Tomato.
+- [ ] Implementar comentários e sincronização apenas com backend próprio/autorizado.
+- [ ] Implementar leitor de mangá com conteúdo autorizado.
+- [ ] Reavaliar tamanho/recursos do IPA somente depois dos módulos reais estarem incluídos.
 
 ## bloqueadores
 
@@ -56,5 +68,7 @@ Atualizado em 22/11/2026.
 - Os serviços pagos (Crunchyroll sob demanda, AniBiz Pro/VIP, APIs comerciais) não serão contratados sem autorização expressa.
 
 ## regra
+
+O IPA de 87 KB é somente protótipo de interface/pipeline. Não o apresentar como port, clone ou entrega do Tomato.
 
 Marcar como **implementado e testado**, **parcial**, **planejado**, **não verificado** ou **bloqueado**. Link externo, tela ou build não prova playback funcional.
